@@ -1,0 +1,1 @@
+C:\Users\ZainabK\AppData\Local\Programs\Python\Python38-32\python.exe  E:\optionstrader\webapp\utils\optionscron.py

@@ -1,0 +1,454 @@
+{%extends "base.html"%}
+{%load templatefunctions%}
+
+{%block content%}
+{% comment %} 
+dt["name"]=seriesdata[0]["name"]
+dt["type"]=seriesdata[1]
+dt["strike"]=seriesdata[2]
+dt["price"]=seriesdata[3]
+dt["day_change"]=seriesdata[4]
+dt["OI%"]=seriesdata[10]
+dt["IV%"]=seriesdata[12]
+dt["VOL%"]=seriesdata[6]
+dt["option_buildup"]=seriesdata[19] {% endcomment %}
+
+
+<select name="scrip" onchange="showScreener(this)">
+    {%for data in heatmapdata.data%}
+        {%if data.code == scrip%}
+       <option value="{{data.code}}" selected>{{data.code}}</option>
+       {%else%}
+       <option value="{{data.code}}">{{data.code}}</option>
+       {%endif%}
+    {%endfor%}
+</select>
+
+&ensp;
+<a href="/screeners/BANKNIFTY/">BANKNIFTY</a>
+&ensp;
+<a href="/screeners/NIFTY/">NIFTY</a>
+
+
+
+
+<hr>
+{% comment %} <h4>{{scrip}}</h4> {% endcomment %}
+{%for data in heatmapdata.data%}
+
+{%if data.code == scrip %}
+
+<span style="font-weight:800;font-size:20px;"><div style="font-weight:800;font-size:20px;">{{data.name}} &nbsp;&nbsp;&nbsp;</div>
+    <div>Market cap : {{data.Mcap}}</div>
+    <span class="badge bg-primary">{{data.Sector}}</span><br>
+    <span style="font-size:11.5px;"> {{data.IntraSectorRank}}</span> | <span style="font-size:11.5px;color:#56df45;">{{data.NiftyRank}}</span>
+    <span class="badge bg-secondary">{{data.Industry}}</span>
+    <span class="badge bg-dark">{{data.MktCategory}}</span></h6>
+<br><br>
+
+<span class="badge bg-info text-dark">LOT SIZE: {{lotsize}}</span>
+&nbsp;&nbsp;
+<span class="badge bg-info text-dark">STEP SIZE: {{stepsize}}</span>
+&nbsp;&nbsp;
+
+<span class='badge bg-primary'>{{data.price_rank}}</span>,<span class='badge bg-primary'>{{data.oi_rank}}</span><br>
+<hr>
+{%endif%}
+
+{%endfor%}
+
+<table class="table small heatmaptable ">
+    <tr style="background:#000;">
+        <th><a href="/heatmap/code">CODE</a></th>
+        <th><a href="/heatmap/name">NAME</a></th>
+        <th>PRICE</th>
+        <th>OI</th>
+        <th><a href="/heatmap/oi_change">OI CH.</a></th>
+        <th><a href="/heatmap/builtup_str">BuildUP</a></th>
+        
+        
+        <th>CITM4</th>
+        <th>CITM3</th>
+        <th>CITM2</th>
+        <th>CITM1</th>
+        
+        <th>ATM</th>
+        <th>PITM1</th>
+        <th>PITM2</th>
+        <th>PITM3</th>
+        <th>PITM4</th>
+    </tr>
+    
+        
+
+
+
+    {%for data in heatmapdata.data%}
+
+    {%if data.code == scrip %}
+    <tr >
+        <td style="background:{{data.color}};color:#fff;"><a style="color:#fff;text-decoration:none;" href="/screeners/{{data.code}}">{%if data.screener_count > 0 %}* {%endif%}{{data.code}} {%if data.screener_count > 0 %} <sub>{{data.screener_count|floatformat:0}}</sub> {%endif%} </a></td>
+        <td >{{data.name}}[{{data.screener_count}}]</td>
+        <td>{{data.current_price}} &nbsp;&nbsp;({{data.current_change|floatformat:2}}%)</td>
+        <td>{{data.oi}}</td>
+        <td>
+            
+            {%if data.oi_change > 0 %}
+                <p class="text-success">{{data.oi_change|floatformat:2}}%</p>
+              {%else%}  
+              <p class="text-danger">{{data.oi_change|floatformat:2}}%</p>
+            {%endif%}
+        </td>
+        <td>
+            
+            {%if data.builtup_str == "Long Build Up" or  data.builtup_str == "Short Covering"%}
+            <span class="badge rounded-pill bg-success text-light">{{data.builtup_str}}</span>
+            {%else%}
+            <span class="badge rounded-pill bg-danger text-light">{{data.builtup_str}}</span>
+            {%endif%}
+        </td>
+        <td>{{data.citm4|floatformat:0}}</td>
+        <td>{{data.citm3|floatformat:0}}</td>
+        <td>{{data.citm2|floatformat:0}}</td>
+        <td>{{data.citm1|floatformat:0}}</td>
+        <td style="color:blue">{{data.atm|floatformat:0}}</td>
+        <td>{{data.pitm1|floatformat:0}}</td>
+        <td>{{data.pitm2|floatformat:0}}</td>
+        <td>{{data.pitm3|floatformat:0}}</td>
+        <td>{{data.pitm4|floatformat:0}}</td>
+    </tr>    
+    {%endif%}
+    {%endfor%}
+
+</table>
+<h5>Screeners</h5> <sub>Updated : {{screenerdata.last_updated|getTimeAgo}}</sub>
+
+
+{% comment %} Display the calculator  {% endcomment %}
+<div class="row">
+    <h5>Calculator</h5>
+    <br><br>
+    <div class="row">
+
+        <div class="col-md-6 col-sm-6 col-lg-4"> 
+            Max Risk per Day 
+            <input type="number" id="max_risk" step={{stepsize}}   value = 5000 onChange="updateDetailsITM(this.value);">
+                
+        </div>
+        <div class="col-md-6 col-sm-6 col-lg-4"> 
+            Other Costs 
+            <input type="number" id="other_costs" step=0.05   value = 0 onChange="updateDetailsITM(this.value);">
+                
+        </div>
+    </div>
+    <table class="table">
+        <tr>
+            <th class="sizing">Entry Price</th>
+            <th class="sizing">Stop Loss</th>
+            <th class="sizing">Risk / <br>Lot</th>
+            <th class="sizing">Max<br> Lots</th>
+            <th class="sizing">Take Profit <br>@1:1 RR</th>
+            <th class="sizing">Take Profit <br>@Max Risk</th>
+            <th class="sizing">Take Profit <br>@1:2 RR</th>
+            
+            
+            <th class="sizing">Total <br>Capital</th>
+            <th class="sizing">Total <br>Risk</th>
+            <th class="sizing">Total<br> Profit</th>
+        </tr>
+        <tr>
+                <td>
+                {% comment %} <input type="text" name="strike" placeholder="enter strike"> {% endcomment %}
+                <input type="number" id="price" size=10 step=0.05 placeholder="enter price" value = 0 onChange="updateSL();">
+                
+                </td>
+
+                <td>
+                    <input type="number" id="stoploss" size=10  step=0.05 placeholder="enter SL" value=0   > 
+                    <input type="button" value="Go" onClick="updateDetailsITM(this.value);">
+                </td>
+
+                <td>
+                    <div id="risk_per_lot"></div>
+                </td>
+
+                <td>
+                    <div id="max_lots"></div>
+                </td>
+
+                <td>
+                    <div id="profit_1_1_rr"></div>
+                </td>
+                <td>
+                    <div id="profit_max_risk"></div>
+                </td>
+                <td>
+                    <div id="profit_1_2_rr"></div>
+                </td>
+            
+                
+                <td>
+                    <div id="total_capital"></div>
+                </td>
+
+                <td>
+                    <div id="total_risk"></div>
+                </td>
+            
+                <td>
+                    <div id="total_profit"></div>
+                </td>
+            
+        </tr> 
+
+<table class="table small heatmaptable">
+    <tr style="background:#000;">
+        <th>Name</th>
+        <th>ZeroDha</th>
+        <th>Type</th>
+        <th>Strike</th>
+        <th>Price</th>
+        <th>Day Ch.%</th>
+        <th>OI%</th>
+        <th>IV%</th>
+        <th>VOL%</th>
+        <th>Option<br>Buildup</th>
+        <th class="sizing">SL</th>
+        <th class="sizing">Fixed<br>Target</th>
+        <th class="sizing">RR<br>Target</th>
+        <th class="sizing">Pos<br>Size</th>
+        <th class="sizing">Max <br>Profit</th>
+        <th class="sizing">Max<br> Loss</th>
+        <th class="sizing">Max <br>Exposure</th>
+        <th class="sizing">Max<br> Reward</th>
+    </tr>    
+    {%for data_row in screenerdata.data%}
+    <tr>
+        <td>{{data_row.name}}</td>
+        <td>{{data_row|getZeroDhaSymbol}}</td>
+        <td>{{data_row.type}}</td>
+        
+        <td>{{data_row.strike|floatformat:0}}</td>
+        <td>{{data_row.price}}</td>
+        <td>{{data_row.day_change}}</td>
+        <td>
+            {{data_row.oi|getPosNegPercent|safe}}
+            
+
+        </td>
+        <td>{{data_row.iv}}</td>
+        <td>{{data_row.vol}}</td>
+        <td>
+
+        
+        {%if data_row.option_buildup == "Long Build Up" or  data_row.option_buildup == "Short Covering"%}
+        <span class="badge rounded-pill bg-success text-light">{{data_row.option_buildup}}</span>
+        {%else%}
+        <span class="badge rounded-pill bg-danger text-light">{{data_row.option_buildup}}</span>
+        {%endif%}
+    </td>
+        <td>{{data_row.price|getStopLoss}}</td>
+        <td>{{data_row.price|getFixedProfit}}</td>
+        <td>{{data_row.price|getRiskRewardProfit}}</td>
+        <td> {{data_row.price|getMaxPositionSize:lotsize}} </td>
+        <td> {{data_row.price|getMaxProfit:lotsize}} </td>
+        <td> {{data_row.price|getMaxLoss:lotsize}} </td>
+        <td> {{data_row.price|getMaxExposure:lotsize}}% </td>
+        <td> {{data_row.price|getMaxReward:lotsize}}% </td>
+        
+    </tr>    
+    {%endfor%}
+
+<table>
+
+
+ 
+{% comment %} 
+{%for data_option in data%}
+
+{{data_option}}
+<hr>
+{%endfor%} {% endcomment %}
+
+{%endblock%}
+
+
+{%block script%}
+
+<script>
+    function showScreener(selectObject){
+        var value = selectObject.value;  
+        console.log(value);
+        window.location.href="/screeners/"+value;
+    }
+
+    function updateDetails(){
+        
+        price=parseFloat(document.getElementById("price").value);
+        if (typeof price === 'number' && price>0){
+            console.log("Correct",price);
+            stoploss=price * 0.9
+            document.getElementById("stoploss").innerHTML=stoploss.toFixed(2)
+            fixed_target=price*1.2
+            document.getElementById("fixed_target").innerHTML=fixed_target.toFixed(2)
+
+            rr_target=price+(price-stoploss)*3
+            document.getElementById("rr_target").innerHTML=rr_target.toFixed(2)
+
+            lotsize = {{lotsize}}
+            pos_size=100000/(price*lotsize)
+            document.getElementById("pos_size").innerHTML=Math.floor(pos_size)
+        
+         
+            ft= (price*1.2)-(price)
+            pr=Math.floor(100000/(price*lotsize))
+            
+            max_profit=ft*lotsize*pr
+            document.getElementById("max_profit").innerHTML=max_profit.toFixed(2)
+
+            fl= price*0.1
+            
+            max_loss=fl*lotsize*pr
+            document.getElementById("max_loss").innerHTML=max_loss.toFixed(2)
+
+            
+            max_exposure = (100*max_loss)/500000
+            document.getElementById("max_exposure").innerHTML=max_exposure.toFixed(2)
+
+            max_reward = (100*max_profit)/500000
+            document.getElementById("max_reward").innerHTML=max_reward.toFixed(2)
+          
+
+
+
+            
+        }
+        else{
+            console.log("WRONG",price);
+        }
+
+        
+    }
+
+    function updateSL(selectObject){
+        price=parseFloat(document.getElementById("price").value);
+        if (typeof price === 'number' && price>0)
+        {
+            console.log("Correct",price);
+            stoploss = price * 0.8
+            document.getElementById("stoploss").value = stoploss.toFixed(2)
+        }    
+
+    }
+
+    function updateSL_ATM(selectObject){
+        price=parseFloat(document.getElementById("ATM_price").value);
+        if (typeof price === 'number' && price>0)
+        {
+            console.log("Correct",price);
+            stoploss = price * 0.8
+            document.getElementById("ATM_stoploss").value = stoploss.toFixed(2)
+        }    
+
+    }
+
+    function updateDetailsITM(){
+        
+        price=parseFloat(document.getElementById("price").value);
+        max_risk_per_day=parseFloat(document.getElementById("max_risk").value);
+        other_costs = parseFloat(document.getElementById("other_costs").value);
+        lotsize = {{lotsize}}
+
+        if (typeof price === 'number' && price>0){
+            console.log("Correct",price);
+            stoploss= parseFloat(document.getElementById("stoploss").value);
+            console.log("stoploss",stoploss)
+
+            risk_per_lot = (price - stoploss)* lotsize
+            document.getElementById("risk_per_lot").innerHTML = risk_per_lot.toFixed(2)
+
+            max_lots = Math.floor((max_risk_per_day - other_costs) / risk_per_lot)
+            document.getElementById("max_lots").innerHTML = max_lots.toFixed(2)
+            
+            profit_1_1_rr = price + (price - stoploss)
+            document.getElementById("profit_1_1_rr").innerHTML=profit_1_1_rr.toFixed(2)
+
+            profit_max_risk = price +  ( (max_risk_per_day ) + (other_costs)) / lotsize/max_lots
+            document.getElementById("profit_max_risk").innerHTML=profit_max_risk.toFixed(2)
+
+            profit_1_2_rr = price + (price - stoploss) * 2
+            document.getElementById("profit_1_2_rr").innerHTML=profit_1_2_rr.toFixed(2)
+
+            total_capital = max_lots * lotsize * price
+            document.getElementById("total_capital").innerHTML=total_capital.toFixed(2)
+
+            total_risk = (max_lots  * risk_per_lot) + other_costs
+            document.getElementById("total_risk").innerHTML=total_risk.toFixed(2)
+
+
+            total_profit = (max_lots * lotsize * ( profit_1_1_rr - price)) - other_costs 
+            document.getElementById("total_profit").innerHTML=total_profit.toFixed(2)
+
+            
+            
+        }
+        else{
+            console.log("WRONG",price);
+        }
+
+        
+    }
+
+
+    function updateDetailsATM(){
+        
+        price=parseFloat(document.getElementById("ATM_price").value);
+        max_risk_per_day=parseFloat(document.getElementById("max_risk").value);
+        other_costs = parseFloat(document.getElementById("other_costs").value);
+        lotsize = {{lotsize}}
+
+        if (typeof price === 'number' && price>0){
+            console.log("Correct",price);
+            stoploss= parseFloat(document.getElementById("ATM_stoploss").value);
+            console.log("stoploss",stoploss)
+
+            risk_per_lot = (price - stoploss)* lotsize
+            document.getElementById("ATM_risk_per_lot").innerHTML = risk_per_lot.toFixed(2)
+
+            max_lots = Math.floor((max_risk_per_day - other_costs) * 0.3 / risk_per_lot)
+            document.getElementById("ATM_max_lots").innerHTML = max_lots.toFixed(2)
+            
+            profit_1_1_rr = price + (price - stoploss)
+            document.getElementById("ATM_profit_1_1_rr").innerHTML=profit_1_1_rr.toFixed(2)
+
+            profit_max_risk = price +  ( (max_risk_per_day *0.35 ) + (other_costs* 0.3)) / lotsize/max_lots
+            document.getElementById("ATM_profit_max_risk").innerHTML=profit_max_risk.toFixed(2)
+
+            profit_1_2_rr = price + (price - stoploss) * 2
+            document.getElementById("ATM_profit_1_2_rr").innerHTML=profit_1_2_rr.toFixed(2)
+
+            total_capital = max_lots * lotsize * price
+            document.getElementById("ATM_total_capital").innerHTML=total_capital.toFixed(2)
+
+            total_risk = (max_lots  * risk_per_lot) + other_costs * 0.3
+            document.getElementById("ATM_total_risk").innerHTML=total_risk.toFixed(2)
+
+            total_profit = (max_lots * lotsize * ( profit_1_1_rr - price)) - other_costs * 0.3
+            document.getElementById("ATM_total_profit").innerHTML=total_profit.toFixed(2)
+
+            
+            
+        }
+        else{
+            console.log("WRONG",price);
+        }
+
+        
+    }
+
+
+
+
+
+</script>
+{%endblock%}

@@ -1,0 +1,568 @@
+//@version=4
+//© shtcoinr, updated to v4 wijth additional zones and settings by Lij_MC
+study(title="ZZ_RSI_SD_HT_Legends", shorttitle="HT_Legends", overlay=true)
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+ShowSD1    = input(false, "Supply Demand Zone", group = "Supply Demand 1", inline = "Supply Demand 1")
+ShowSZ1    = input(true, "Support Zone",       group = "Supply Demand 1", inline = "Supply Demand 1")
+ShowRZ1    = input(true, "Resistance Zone",    group = "Supply Demand 1", inline = "Supply Demand 1")
+
+RSI1Length = input(14, minval=1, title="RSI 1 Length",                                                                            group="Supply Demand 1")
+RSI1OBOSIn = input(defval="70 / 30", title="OB / OS", options=["70 / 30", "75 / 25", "80 / 20", "85 / 15", "90 / 10", "95 / 5"], group="Supply Demand 1")
+NumberOfConfirmationBarsRSI1 = input(2, title="Confirmation Bars",                                                               group="Supply Demand 1")
+
+RSI1SDColorIn          = input(color.new(color.blue, 85), "Fill Colors - Supply Demand", type = input.color, group="Supply Demand 1", inline = "Fill 1")
+RSI1SupportColorIn     = input(color.new(color.lime, 80), "Support",                     type = input.color, group="Supply Demand 1", inline = "Fill 1")
+RSI1ResistanceColorIn  = input(color.new(color.red,  80), "Resistance",                  type = input.color, group="Supply Demand 1", inline = "Fill 1")
+
+
+RSI1       = rsi(close, RSI1Length)
+
+RSI1OB = RSI1OBOSIn == "70 / 30" ? 70 : 
+   RSI1OBOSIn == "75 / 25" ? 75 : RSI1OBOSIn == "80 / 20" ? 80 : 
+   RSI1OBOSIn == "90 / 10" ? 90 : RSI1OBOSIn == "95 / 5" ? 95 : 100
+RSI1OS = RSI1OBOSIn == "70 / 30" ? 30 : 
+   RSI1OBOSIn == "75 / 25" ? 25 : RSI1OBOSIn == "80 / 20" ? 20 : 
+   RSI1OBOSIn == "90 / 10" ? 10 : RSI1OBOSIn == "95 / 5" ? 5 : 0
+
+
+
+RSI1incrementer_up   = RSI1 > RSI1OB ? 1 : 0
+RSI1incrementer_down = RSI1 < RSI1OS ? 1 : 0
+RSI1incrementer_both = RSI1 > RSI1OB or RSI1 < RSI1OS ? 1 : 0
+
+
+RSI1rsx = 0
+
+
+if RSI1incrementer_both
+    RSI1rsx := nz(RSI1rsx[1], 0) + RSI1incrementer_both
+    RSI1rsx
+else
+    RSI1rsx = 0
+    RSI1rsx
+
+RSI1rxH = if RSI1rsx >= NumberOfConfirmationBarsRSI1
+    RSI1x = high
+    RSI1x
+RSI1rxL = if RSI1rsx >= NumberOfConfirmationBarsRSI1
+    RSI1y = low
+    RSI1y
+
+RSI1rH = fixnan(RSI1rxH)
+RSI1rL = fixnan(RSI1rxL)
+
+
+///////////////////////////////////////////////////////
+
+
+RSI1rsu = 0
+
+
+if RSI1incrementer_up
+    RSI1rsu := nz(RSI1rsu[1], 0) + RSI1incrementer_up
+    RSI1rsu
+else
+    RSI1rsu = 0
+    RSI1rsu
+
+
+RSI1rssH = if RSI1rsu >= NumberOfConfirmationBarsRSI1
+    RSI1x = high
+    RSI1x
+
+
+RSI1rssL = if RSI1rsu >= NumberOfConfirmationBarsRSI1
+    RSI1y = low
+    RSI1y
+
+RSI1ResistanceZoneHigh = fixnan(RSI1rssH)
+RSI1ResistanceZoneLow  = fixnan(RSI1rssL)
+
+
+////////////////////////////////////////////////////////
+
+
+RSI1rsd = 0
+
+
+if RSI1incrementer_down
+    RSI1rsd := nz(RSI1rsd[1], 0) + RSI1incrementer_down
+    RSI1rsd
+else
+    RSI1rsd = 0
+    RSI1rsd
+
+RSI1rsrH = if RSI1rsd >= NumberOfConfirmationBarsRSI1
+    RSI1x = high
+    RSI1x
+
+RSI1rsrL = if RSI1rsd >= NumberOfConfirmationBarsRSI1
+    RSI1y = low
+    RSI1y
+
+
+RSI1SupportZoneHigh = fixnan(RSI1rsrH)
+RSI1SupportZoneLow  = fixnan(RSI1rsrL)
+
+
+////////////////////////////////////////////////////////
+
+RSI1_ResZoneColor = RSI1ResistanceZoneHigh !=  RSI1ResistanceZoneHigh[1] ?  na : RSI1ResistanceColorIn
+RSI1_SupZoneColor = RSI1SupportZoneLow     !=  RSI1SupportZoneLow[1]     ?  na : RSI1SupportColorIn
+
+RSI1SDColor       = RSI1rH != RSI1rH[1]?                                    na : RSI1SDColorIn
+
+////////////////////////////////////////////////////////
+
+RSI1RZHigh = plot(ShowRZ1 ? RSI1ResistanceZoneHigh : na, style=plot.style_cross, title="Resistance Zone - 1 - High", color=RSI1_ResZoneColor, transp=1)
+RSI1RZLow  = plot(ShowRZ1 ? RSI1ResistanceZoneLow  : na, style=plot.style_cross, title="Resistance Zone - 1 - Low",  transp=100)
+fill(RSI1RZHigh, RSI1RZLow, color=RSI1_ResZoneColor, title="Support Zone - 1 - Fill")
+
+RSI1SZHigh = plot(ShowSZ1 ? RSI1SupportZoneHigh    : na, style=plot.style_cross,    title="Support Zone - 1 - High", transp=100)
+RSI1SZLow  = plot(ShowSZ1 ? RSI1SupportZoneLow     : na, style=plot.style_cross,    title="Support Zone - 1 - Low",  transp=100)
+fill(RSI1SZHigh, RSI1SZLow, color=RSI1_SupZoneColor, title="Support Zone - 1 - Fill")
+
+
+PlotRSI1rH = plot(ShowSD1 ? RSI1rH : na,  style=plot.style_cross, linewidth=1, title="Supply Demand - 1 - High")
+PlotRSI1rL = plot(ShowSD1 ? RSI1rL : na,  style=plot.style_cross, linewidth=1, title="Supply Demand - 1 - Low")
+fill(PlotRSI1rH, PlotRSI1rL, color=RSI1SDColor, title="Supply Demand - 1 - Fill")
+
+////////////////////////////////////////////////////////
+
+PriceInRSI1SDZone     = (close <= RSI1rH) and (close >= RSI1rL) and (RSI1rH == RSI1rH[1])
+PriceEntersRSI1SDZone = (PriceInRSI1SDZone and not PriceInRSI1SDZone[1])
+
+alertcondition(PriceEntersRSI1SDZone,   title='Alert - Price Enters S/D Zone 1',    message='Price Enters S/D Zone 1 - RSI S/D')
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+len = input(14, minval=1, title="Length")
+emaHighlight = input(title="EMA Highlight On/Off ?", type=input.bool, defval=false)
+showElder = input(title="Elder Arrows On/Off ?", type=input.bool, defval=false)
+src1  = input(close, "Source", type = input.source)
+
+
+//EMA
+ema21 = ema(close,21)
+ema34 = ema(close,34)
+ema50 = ema(close,55)
+ema200 = ema(close,200)
+
+//ema21p=plot(emaHighlight?ema21:na, color=color.blue, transp=80, linewidth=1)
+//ema34p=plot(emaHighlight?ema34:na, color=color.blue, transp=80, linewidth=1)
+
+ema21p=plot(emaHighlight?ema21:na, "ema21p", color.new(color.blue, 80), linewidth=1)
+ema34p=plot(emaHighlight?ema34:na, "ema34p", color.new(color.blue, 80), linewidth=1)
+
+emaLongCondition = crossover(ema21,ema34)
+emaShortCondition = crossunder(ema21,ema34)
+
+if(emaLongCondition)
+    l = label.new(bar_index, ema21, "",
+     color=color.green, 
+     textcolor=color.white,
+     style=label.style_cross)
+     
+if(emaShortCondition)
+    l = label.new(bar_index, ema21, "",
+     color=color.red, 
+     textcolor=color.white,
+     style=label.style_cross)
+
+
+
+//ema50p=plot(emaHighlight?ema50:na, color=color.red, transp=80, linewidth=1)
+//ema200p=plot(emaHighlight?ema200:na, color=color.red,  transp=80, linewidth=1)
+
+ema50p=plot(emaHighlight?ema50:na, "ema50p", color.new(color.red, 80), linewidth=1)
+ema200p=plot(emaHighlight?ema200:na, "ema200p", color.new(color.red, 80), linewidth=1)
+
+ema50_over_ema200 =  crossover(ema50,ema200)
+
+fill(ema21p, ema34p, title="Ema support Resistance Zone Highligter", color=color.blue, transp=(emaHighlight)?100:80)
+fill(ema50p, ema200p, title="Ema support Resistance Zone Highligter", color=(ema50>ema200)?color.green:color.red, transp=(emaHighlight)?100:90)
+
+
+mavwap = sma(vwap,3)
+//plot(mavwap, color=color.orange, linewidth=1)
+//plot(ta.vwap, color=color.new(color.orange, 10), linewidth=3)
+
+//EMA
+
+//Volume Standard Dev Based Price Support 
+
+vol =volume
+stdev_length = input(21)
+mult_1 = input(1)
+mult_2 = input(2)
+mult_3 = input(3)
+
+calculate_stdev(src, length, mult) =>
+    basis = sma(src, length) 
+    sd = stdev(src, length)
+    //@return
+    (basis + mult * sd)
+    
+
+//CURRENT TIMEFRAME    
+upper1 = calculate_stdev(vol, stdev_length, mult_1)
+upper2 = calculate_stdev(vol, stdev_length, mult_2)
+upper3 = calculate_stdev(vol, stdev_length, mult_3)
+
+var levels1 = float(na)-float(na)
+var levels2 = float(na)-float(na)
+var levels3 = float(na)-float(na)
+
+
+// plot only when timeframe >= 60mins
+timeFrameChk = false 
+if(timeframe.isweekly or  timeframe.ismonthly or timeframe.isdaily or (timeframe.isminutes and timeframe.multiplier >= 60)  )
+    timeFrameChk := true
+
+
+volumepeak = volume>calculate_stdev(volume, stdev_length, 3)
+bgcolor(color=volumepeak?color.new(color.silver, 30):na)
+
+if vol > upper1 and not(vol>upper2) and not(vol>upper3) and timeFrameChk
+    levels1 := hlc3
+if vol > upper2 and not(vol>upper3) and timeFrameChk
+    levels2 := hlc3
+if vol > upper3
+    levels3 :=hlc3
+
+//plot(levels1, color= levels1 !=levels1[1] ? na: color.blue, style = plot.style_linebr)
+//plot(levels2, color= levels2 !=levels2[1] ? na: color.orange, style = plot.style_linebr)
+plot(levels3, color= levels3 !=levels3[1] ? na: color.green, style = plot.style_linebr, linewidth=2)
+
+// End Of Volume Standard Dev Based Price Support 
+
+// NR4 & NR7 cluster Logics
+
+
+aOpen = open    //security(tickerid, period, open)
+aHigh = high    //security(tickerid, period, high)
+aLow =  low     //security(tickerid, period, low)
+aClose = close  //security(tickerid, period, close)
+
+//length_NR = input(defval = 7, title = "Enter  No. Of Days", type = input.integer)
+
+length_NR = 7 
+NR_Check(range) =>
+    insideBar = false
+    if(high[0] <= high[1] and low[0] >= low[1])  
+        insideBar := true  
+    
+    range < lowest(range, length_NR - 1)[1]  and insideBar ? true : false  // checking if range[0 - n ] is lower than the lowest of( range[1] to range[length_NR-1] )
+    
+    
+    
+range_NR_Prep = aHigh - aLow
+range_isCurrentLowest7 = NR_Check(range_NR_Prep)
+
+//range_NR = aHigh[1] - aLow[1]
+//range_isLowest = NR_Check(range_NR)
+
+length_NR := 4 
+range_isCurrentLowest4 = NR_Check(range_NR_Prep)
+
+   
+plotshape(range_isCurrentLowest4  and timeFrameChk  ? low : na, style = shape.diamond, location=location.abovebar, color = color.black )
+plotshape(range_isCurrentLowest7 and timeFrameChk  ? low : na, style = shape.diamond, location=location.belowbar, color = color.blue )
+
+
+    // Now identify all the clusters 
+    // highlight  if there are atleast 2 NR4 or 2NR7 diamonds in the last n candles , n = 9 by default
+int clusterRangeNR4 = 9
+int clusterNR4 = 0
+
+float highNR4 = 0
+float lowNR4 = 999999999
+
+for i = 0 to clusterRangeNR4-1 
+    if(range_isCurrentLowest4[i] == true) 
+        clusterNR4 := clusterNR4 + 1
+        highNR4 := high[i] > highNR4 ? high[i] : highNR4
+        lowNR4 := low[i] < lowNR4 ? low[i] : lowNR4
+    
+
+int clusterRangeNR7 = 9
+int clusterNR7 = 0
+
+float highNR7 = 0
+float lowNR7 = 999999999       
+
+for i = 0 to clusterRangeNR7-1 
+    if(range_isCurrentLowest7[i] == true) 
+        clusterNR7 := clusterNR7 + 1
+        highNR7 := high[i] > highNR7 ? high[i] : highNR7
+        lowNR7 := low[i] < lowNR7 ? low[i] : lowNR7
+        
+        
+
+// lowest7 = lowest( low, clusterRangeNR7)
+// highest4 = highest(high, clusterRangeNR4)
+
+if( timeFrameChk   and clusterNR4 >= 2 and barstate.islast ) 
+    line.new(x1=bar_index[8], y1=highNR4, x2=bar_index, y2=highNR4 , color = color.black ,width=2)    
+    line.new(x1=bar_index[8], y1=lowNR4, x2=bar_index, y2=lowNR4 , color = color.black ,width=2)    
+    line.new(x1=bar_index[8], y1=highNR4, x2=bar_index[8], y2=lowNR4 , color = color.black ,width=2)    
+    line.new(x1=bar_index, y1=highNR4, x2=bar_index, y2=lowNR4 , color = color.black ,width=2)    
+
+// For visibility of both boxes
+if ( highNR7 == highNR4)
+    highNR7 := highNR7 + 2
+if (lowNR7 == lowNR4 )
+    lowNR7 := lowNR7 - 2
+    
+if( timeFrameChk  and clusterNR7 >= 2 and barstate.islast  ) 
+    line.new(x1=bar_index[8], y1=lowNR7, x2=bar_index, y2=lowNR7 ,color = color.blue,width=2)
+    line.new(x1=bar_index[8], y1=highNR7, x2=bar_index, y2=highNR7 ,color = color.blue,width=2)    
+    line.new(x1=bar_index, y1=lowNR7, x2=bar_index, y2=highNR7 ,color = color.blue,width=2)    
+    line.new(x1=bar_index[8], y1=lowNR7, x2=bar_index[8], y2=highNR7 ,color = color.blue,width=2)    
+
+
+
+// End of NR4 & NR7 Cluster Logics
+
+
+
+// Bollinger band Logic
+// plot only when timeframe <= 60mins
+timeFrameChk60 = false 
+length = input(21, minval=1)
+basis = sma(close, length)
+dev = 2.0 * stdev(close, length)
+upper = basis + dev
+lower = basis - dev
+offset = input(0, "Offset", type = input.integer, minval = -500, maxval = 500)
+//plot(basis, "Basis", color=#FF6D00, offset = offset)
+p1 = plot(timeFrameChk60 ? upper : na, "Upper", color=color.blue, offset = offset)
+p2 = plot(timeFrameChk60 ? lower : na, "Lower", color=color.blue, offset = offset)
+//fill(p1, p2, title = "Background", color=color.rgb(33, 150, 243, 95))
+// End of Bollinger band Logic
+
+// T3 Tillson Logic,  Best Swing indicator
+
+T3FiboLine = input(false, title="Show T3 Fibonacci Ratio Line?")
+
+
+length1 = input(3, "T3 Length")
+a1 = input(0.618, "Volume Factor")
+
+e1 = ema((high + low + 2 * close) / 4, length1)
+e2 = ema(e1, length1)
+e3 = ema(e2, length1)
+e4 = ema(e3, length1)
+e5 = ema(e4, length1)
+e6 = ema(e5, length1)
+c1 = -a1 * a1 * a1
+c2 = 3 * a1 * a1 + 3 * a1 * a1 * a1
+c3 = -6 * a1 * a1 - 3 * a1 - 3 * a1 * a1 * a1
+c4 = 1 + 3 * a1 + a1 * a1 * a1 + 3 * a1 * a1
+T3 = c1 * e6 + c2 * e5 + c3 * e4 + c4 * e3
+
+col1 = T3 > T3[1]
+col3 = T3 < T3[1]
+//color_1 = col1 ? color.green : col3 ? color.red : color.yellow
+color_1 = col1 ? color.yellow : col3 ? color.purple : color.yellow
+//plot(T3, color=color_1, linewidth=1, title="T3")
+
+//color_2 = (col3 and  src1*.999 > T3) or (col1 and  T3*.999 > src1)? 1 :  na
+//bgcolor(color_2 ? color.new(color.yellow, 90) : na)
+
+//plot(src1, title="Close Price", color= color_2, style=plot.style_line, linewidth=3)
+length12 = input(5, "T3 Length fibo")
+a12 = input(0.618, "Volume Factor fibo")
+
+e12 = ema((high + low + 2 * close) / 4, length12)
+e22 = ema(e12, length12)
+e32 = ema(e22, length12)
+e42 = ema(e32, length12)
+e52 = ema(e42, length12)
+e62 = ema(e52, length12)
+c12 = -a12 * a12 * a12
+c22 = 3 * a12 * a12 + 3 * a12 * a12 * a12
+c32 = -6 * a12 * a12 - 3 * a12 - 3 * a12 * a12 * a12
+c42 = 1 + 3 * a12 + a12 * a12 * a12 + 3 * a12 * a12
+T32 = c12 * e62 + c22 * e52 + c32 * e42 + c42 * e32
+
+col12 = T32 > T32[1]
+col32 = T32 < T32[1]
+color2 = col12 ? color.blue : col32 ? color.purple : color.yellow
+plot(T3FiboLine and T32 ? T32 : na, color=color2, linewidth=2, title="T3fibo")
+// end of T3 Tillson Logic
+
+// Price Action Toolkit - Fractals, HHLL, PAC Cloud & Alerts
+// === /INPUTS ===
+
+HiLoLen         = input(44, minval=2, title="High Low PAC channel Length")
+fastEMAlength   = input(89, minval=2)
+mediumEMAlength = input(200, minval=2)
+slowEMAlength   = input(600, minval=2)
+ShowFastEMA     = input(false)
+ShowMediumEMA   = input(false)
+ShowSlowEMA     = input(false)
+ShowHHLL        = input(false)
+ShowFractals    = input(false)
+filterBW        = input(false, title="Show Ideal Fractals Only")
+ShowBarColor    = input(false, title="Show coloured Bars around PAC")
+ShowBuySell     = input(false, title="Show Buy/Sell Alert Arrows")
+Lookback        = input(3, minval=1, title="Pullback Lookback for PAC Cross Check")
+DelayArrow      = input(false, title="Show Alert Arrows Only on Closed Candles")
+Delay           = DelayArrow ? 1 : 0
+ShowTrendBGcolor= input(false)
+UseHAcandles    = input(true, title="Use Heikin Ashi Candles in Algo Calculations")
+//
+
+
+// === BASE FUNCTIONS ===
+
+haClose = UseHAcandles ? security(heikinashi(syminfo.tickerid), timeframe.period, close) : close
+haOpen  = UseHAcandles ? security(heikinashi(syminfo.tickerid), timeframe.period, open) : open
+haHigh  = UseHAcandles ? security(heikinashi(syminfo.tickerid), timeframe.period, high) : high
+haLow   = UseHAcandles ? security(heikinashi(syminfo.tickerid), timeframe.period, low) : low
+
+
+//  ||---   Fractal Recognition Functions:  ---------------------------------------------------------------||
+isRegularFractal(mode) =>
+    ret = mode == 1 ? high[4] < high[3] and high[3] < high[2] and high[2] > high[1] and 
+       high[1] > high[0] : mode == -1 ? 
+       low[4] > low[3] and low[3] > low[2] and low[2] < low[1] and low[1] < low[0] : 
+       false
+    ret
+
+isBWFractal(mode) =>
+    ret = mode == 1 ? high[4] < high[2] and high[3] <= high[2] and high[2] >= high[1] and 
+       high[2] > high[0] : mode == -1 ? 
+       low[4] > low[2] and low[3] >= low[2] and low[2] <= low[1] and low[2] < low[0] : 
+       false
+    ret
+//  ||-----------------------------------------------------------------------------------------------------||
+
+//
+// === /BASE FUNCTIONS ===
+
+// === SERIES SETUP ===
+//
+
+//  ||---   Setup Moving Averages and PAC channel:
+//  ||-----------------------------------------------------------------------------------------------------||
+fastEMA     = ema(haClose, fastEMAlength)
+mediumEMA   = ema(haClose, mediumEMAlength)
+slowEMA     = ema(haClose, slowEMAlength)
+pacC        = ema(haClose, HiLoLen)
+pacL        = ema(haLow, HiLoLen)
+pacU        = ema(haHigh, HiLoLen)
+TrendDirection = fastEMA > mediumEMA and pacL > mediumEMA ? 1 : 
+   fastEMA < mediumEMA and pacU < mediumEMA ? -1 : 0
+
+//  ||---   Fractal Recognition:
+//  ||-----------------------------------------------------------------------------------------------------||
+filteredtopf = filterBW ? isRegularFractal(1) : isBWFractal(1)
+filteredbotf = filterBW ? isRegularFractal(-1) : isBWFractal(-1)
+//  ||-----------------------------------------------------------------------------------------------------||
+//  ||---   Higher Highs, Lower Highs, Higher Lows, Lower Lows  -------------------------------------------||
+valuewhen_H0 = valuewhen(filteredtopf == true, high[2], 0)
+valuewhen_H1 = valuewhen(filteredtopf == true, high[2], 1)
+valuewhen_H2 = valuewhen(filteredtopf == true, high[2], 2)
+//
+higherhigh = filteredtopf == false ? false : 
+   valuewhen_H1 < valuewhen_H0 and valuewhen_H2 < valuewhen_H0
+lowerhigh = filteredtopf == false ? false : 
+   valuewhen_H1 > valuewhen_H0 and valuewhen_H2 > valuewhen_H0
+valuewhen_L0 = valuewhen(filteredbotf == true, low[2], 0)
+valuewhen_L1 = valuewhen(filteredbotf == true, low[2], 1)
+valuewhen_L2 = valuewhen(filteredbotf == true, low[2], 2)
+//
+higherlow = filteredbotf == false ? false : 
+   valuewhen_L1 < valuewhen_L0 and valuewhen_L2 < valuewhen_L0
+lowerlow = filteredbotf == false ? false : 
+   valuewhen_L1 > valuewhen_L0 and valuewhen_L2 > valuewhen_L0
+
+//
+// === /SERIES ===
+
+//
+// === PLOTTING ===
+// 
+// Plot the Price Action Channel (PAC) base on EMA high,low and close
+L44 = plot(pacL, color=color.new(color.gray, 50), linewidth=1, title="High PAC EMA")
+U44 = plot(pacU, color=color.new(color.gray, 50), linewidth=1, title="Low PAC EMA")
+C44 = plot(pacC, color=color.new(color.red, 50), linewidth=2, title="Close PAC EMA")
+fill(L44, U44, color=color.new(color.gray, 90), title="Fill HiLo PAC")
+
+
+// Colour bars according to the close position relative to the PAC selected.
+BARcolor = haClose > pacU ? color.blue : haClose < pacL ? color.red : color.gray
+barcolor(ShowBarColor ? BARcolor : na, title="Bar Colours")
+//
+BGcolor = TrendDirection == 1 ? color.green : 
+   TrendDirection == -1 ? color.red : color.yellow
+bgcolor(ShowTrendBGcolor ? color.new(BGcolor, 96) : na, title="Trend BG Color")
+
+// Draw the EMA ribbon
+plot(ShowFastEMA ? fastEMA : na, color=color.new(color.green, 20), linewidth=2, title="fastEMA")
+plot(ShowMediumEMA ? mediumEMA : na, color=color.new(color.blue, 20), linewidth=1, title="mediumEMA")
+plot(ShowSlowEMA ? slowEMA : na, color=color.new(color.black, 20), linewidth=4, title="slowEMA")
+
+//
+plotshape(ShowFractals ? filteredtopf : na, title='Filtered Top Fractals', style=shape.triangledown, location=location.abovebar, color=color.red, offset=-2)
+plotshape(ShowFractals ? filteredbotf : na, title='Filtered Bottom Fractals', style=shape.triangleup, location=location.belowbar, color=color.lime, offset=-2)
+//
+plotshape(ShowHHLL ? higherhigh : na, title='Higher High', style=shape.square, location=location.abovebar, color=color.maroon, text="[HH]", offset=-2)
+plotshape(ShowHHLL ? lowerhigh : na, title='Lower High', style=shape.square, location=location.abovebar, color=color.maroon, text="[LH]", offset=-2)
+plotshape(ShowHHLL ? higherlow : na, title='High Low', style=shape.square, location=location.belowbar, color=color.green, text="[HL]", offset=-2)
+plotshape(ShowHHLL ? lowerlow : na, title='Lower Low', style=shape.square, location=location.belowbar, color=color.green, text="[LL]", offset=-2)
+//
+// === /PLOTTING ===
+
+
+// === ALERTING ===
+//
+
+// Initialise Trading state.
+TradeDirection = 0
+TradeDirection := nz(TradeDirection[1])
+//
+pacExitU = haOpen < pacU and haClose > pacU and barssince(haClose<pacC)<=Lookback
+pacExitL = haOpen > pacL and haClose < pacL and barssince(haClose>pacC)<=Lookback
+plotshape(barssince(haClose<pacC),color=na,location=location.bottom,title="barssince(haClose<pacC)")
+plotshape(barssince(close>pacC),color=na,location=location.bottom,title="barssince(haClose>pacC)")
+//
+Buy = TrendDirection == 1 and pacExitU
+Sell = TrendDirection == -1 and pacExitL
+//
+// Keep Current trading state until Pullback occurs or New Recovery.
+TradeDirection := TradeDirection == 1 and haClose<pacC ? 0 : 
+   TradeDirection == -1 and haClose>pacC ? 0 : 
+   TradeDirection == 0 and Buy ? 1 : 
+   TradeDirection == 0 and Sell ? -1 : TradeDirection
+
+// Show buy/sell arrows
+plotarrow(ShowBuySell and nz(TradeDirection[1+Delay]) == 0 and TradeDirection[Delay] != 0 ? TradeDirection[Delay] : na, offset=-Delay, 
+          colorup=color.new(color.green,20), colordown=color.new(color.maroon,20), minheight=20, maxheight=50, title="Buy/Sell Arrow")
+//
+// End of Price Action Toolkit - Fractals, HHLL, PAC Cloud & Alerts
+
+
+//PART III **@@@@@@@@@@@@@ DASHBOARD @@@@@@@@@@@@@@@@@@ ***//
+
+
+dashOn = input(type=input.bool,defval=true,group="dashboard")
+dashColor = input(color.new(#656565, 0), "Dashboard Color", inline="Dash Line",group="dashboard")
+dashTextColor = input(color.new(#ffffff, 0), "Text Color", inline="Dash Line",group="dashboard")
+dashDist = input(5, "Dashboard Distance",group="dashboard")
+//Defines Each Timeframe for Trend Panel
+
+currBarPercentage = round(((close-close[1])/close[1])*100,2)
+
+TodaysBarPercentage = round(((security(syminfo.tickerid,"D",close)-security(syminfo.tickerid,"D",close[1]))/security(syminfo.tickerid,"D",close[1]))*100,2)
+
+if(barstate.islast)
+    label.new(bar_index[0], close,yloc=yloc.abovebar,color=color.new(color.gray,95),text=tostring(currBarPercentage)+"%"+"\n D:"+tostring(TodaysBarPercentage)+"%",textcolor=color.red)
+
+//PART III **@@@@@@@@@@@@@ END OF DASHBOARD @@@@@@@@@@@@@@@@@@ ***//

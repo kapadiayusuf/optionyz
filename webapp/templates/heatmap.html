@@ -1,0 +1,142 @@
+{%extends "base.html"%}
+{%load templatefunctions%}
+
+{%block content%}
+
+{% comment %} {'code': 'DELTACORP', 'name': 'Delta Corp Ltd.', 'color': '#00a25bae', 
+'current_price': 273.35, 'current_change': 4.7318008, 
+'current_difference': 12.35, 
+'oi': 17657100.0, 
+'oi_change': 7.2806037, 
+'oi_difference': 1198300.0, 'builtup_str': 'Long Build Up', 
+'lotsize': 2300, 'contract_step': 5.0, 'qty_freeze': 92000, 
+'atm': 270.0, 'citm1': 265.0, 'citm2': 260.0, 'citm3': 275.0, 
+'citm4': 275.0},  {% endcomment %}
+<div class='row'>
+
+    
+</div>
+<table class="table" >
+    <tr>
+        <td><a href="/heatmap/price_longbuild">%price_chg Asc + long build</a></td>
+            <td><a href="/heatmap/oi_longbuild">%OI_chg asc + Long Buildup </a></td>
+                <td><a href="/heatmap/price_shortbuild">%price_chg Desc + Short build</a></td>
+                    <td><a href="/heatmap/oi_shortbuild">%OI_chg Desc + Short Buildup</a></td>
+        </tr>
+</table>
+<table class="table heatmaptable" style="font-size:14px;!important">
+    <tr style="background:#000;">
+        <th><a href="/heatmap/code">CODE</a></th>
+        
+        <th><a href="/heatmap/Sector">Sector</a></th>
+        
+        
+        <th>RANK</th>    
+        <th>PRICE</th>
+        <th>OI</th>
+        <th><a href="/heatmap/oi_change">OI CH.</a></th>
+        <th><a href="/heatmap/builtup_str">BuildUP</a></th>
+        
+        
+        <th>CITM4</th>
+        <th>CITM3</th>
+        <th>CITM2</th>
+        <th>CITM1</th>
+        
+        <th>ATM</th>
+        <th>PITM1</th>
+        <th>PITM2</th>
+        <th>PITM3</th>
+        <th>PITM4</th>
+    </tr>
+    
+    
+
+    <sub>Updated :  {{heatmapdf.last_updated|getTimeAgo}}</sub>
+
+    {%for data in heatmapdf.data%}
+
+    {%if data.code == "NIFTY" or data.code == "BANKNIFTY" %}
+    <tr>
+        <td style="background:{{data.color}};color:#fff;"><a style="color:#fff;text-decoration:none;font-weight:800;" href="/screeners/{{data.code}}">{%if data.screener_count > 0 %}* {%endif%}{{data.code}} {%if data.screener_count > 0 %} <sub>{{data.screener_count|floatformat:0}}</sub> {%endif%} </a></td>
+        
+            
+            
+        <td ><span class="badge bg-primary">{{data.Sector}}</span></td>
+        
+        
+        <td><span class='badge bg-primary'>{{data.price_rank}}</span>,<span class='badge bg-primary'>{{data.oi_rank}}</span></td>
+        <td>{{data.current_price}} &nbsp;&nbsp;({{data.current_change|floatformat:2}}%)</td>
+        
+        <td>{{data.oi}}</td>
+        <td>{%if data.oi_change > 0 %}
+            <p class="text-success">{{data.oi_change|floatformat:2}}%</p>
+          {%else%}  
+          <p class="text-danger">{{data.oi_change|floatformat:2}}%</p>
+        {%endif%}
+    </td>
+        <td>
+            {%if data.builtup_str == "Long Build Up" or  data.builtup_str == "Short Covering"%}
+            <span class="badge rounded-pill bg-success text-light">{{data.builtup_str}}</span>
+            {%else%}
+            <span class="badge rounded-pill bg-danger text-light">{{data.builtup_str}}</span>
+            {%endif%}
+        </td>
+        <td>{{data.citm4|floatformat:0}}</td>
+        <td>{{data.citm3|floatformat:0}}</td>
+        <td>{{data.citm2|floatformat:0}}</td>
+        <td>{{data.citm1|floatformat:0}}</td>
+        <td style="color:blue">{{data.atm|floatformat:0}}</td>
+        <td>{{data.pitm1|floatformat:0}}</td>
+        <td>{{data.pitm2|floatformat:0}}</td>
+        <td>{{data.pitm3|floatformat:0}}</td>
+        <td>{{data.pitm4|floatformat:0}}</td>
+    </tr>    
+    {%endif%}
+    {%endfor%}
+    <tr><td colspan=15><hr></td></tr>
+
+    {%for data in heatmapdf.data%}
+
+    {%if data.code != "NIFTY" and data.code != "NIFTYBANK" %}
+    <tr>
+        <td style="background:{{data.color}};color:#fff;"><a style="color:#fff;text-decoration:none;font-weight:800;" href="/screeners/{{data.code}}">{%if data.screener_count > 0 %}* {%endif%}{{data.code}} {%if data.screener_count > 0 %} <sub>{{data.screener_count|floatformat:0}}</sub> {%endif%} </a>
+            <br>
+            <span style="font-size:9.5px;color:#000;">{{data.NiftyRank}}</span>
+        </td>
+        
+        <td ><span class="badge bg-primary">{{data.Sector}}</span><br>
+            <span style="font-size:9.5px;"> {{data.IntraSectorRank}}<br>
+                <span class="badge bg-secondary">{{data.Industry}}</span><br>
+                <span class="badge bg-dark">{{data.MktCategory}}</span>
+            </span>
+        </td>
+        {% comment %} <td ><span class="badge bg-secondary">{{data.Industry}}</span></td> {% endcomment %}
+        {% comment %} <td ><span class="badge bg-dark">{{data.MktCategory}}</span></td>    {% endcomment %}
+        <td><span class='badge bg-primary'>{{data.price_rank}}</span>,<span class='badge bg-primary'>{{data.oi_rank}}</span></td>
+        <td>{{data.current_price}} &nbsp;&nbsp;({{data.current_change|floatformat:2}}%)</td>
+        <td>{{data.oi}}</td>
+        <td>
+            {{data.oi_change|getPosNegPercent|safe}}
+            </td>
+        <td>
+            {%if data.builtup_str == "Long Build Up" or  data.builtup_str == "Short Covering"%}
+            <span class="badge rounded-pill bg-success text-light">{{data.builtup_str}}</span>
+            {%else%}
+            <span class="badge rounded-pill bg-danger text-light">{{data.builtup_str}}</span>
+            {%endif%}
+        </td>
+        <td>{{data.citm4|floatformat:0}}</td>
+        <td>{{data.citm3|floatformat:0}}</td>
+        <td>{{data.citm2|floatformat:0}}</td>
+        <td>{{data.citm1|floatformat:0}}</td>
+        <td style="color:blue">{{data.atm|floatformat:0}}</td>
+        <td>{{data.pitm1|floatformat:0}}</td>
+        <td>{{data.pitm2|floatformat:0}}</td>
+        <td>{{data.pitm3|floatformat:0}}</td>
+        <td>{{data.pitm4|floatformat:0}}</td>
+    </tr>    
+    {%endif%}
+    {%endfor%}
+</table>
+{%endblock%}

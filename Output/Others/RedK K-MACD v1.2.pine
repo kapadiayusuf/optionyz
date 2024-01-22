@@ -1,0 +1,441 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+
+// © RedKTrader
+
+ 
+
+//@version=5
+
+indicator('RedK K-MACD v1.2', shorttitle='K-MACD v1.2', explicit_plot_zorder = true, timeframe='', timeframe_gaps=false)
+
+ 
+
+// ---------------------------------------------------------------------------------------------------------------
+
+// MoBars v4.0 - aka K-MACD or MORE MACD (MORE = MoBars + RElative mode)
+
+// Added a 4th MA -represented as a line plot - should be used with very short length as a proxy to the price itself
+
+// - also added the orange (signal) line that closely follows the proxy, for improved visualization of short term momentum change
+
+// Price proxy default is set to RSS_WMA(close, 8) -- this is in reality a smoothed WMA(close, 3), which is fast enough to represent price
+
+// the Signal line is set by default to WMA(Proxy, 7) - as initial values to experiment with
+
+// can now use MoBars v4.0 to view a setup of price against 3 MA's - like in the Minervini template - Cup & Handle, High Tight Flag..and similar formations
+
+// - updated inputs to allow choice of source price for all MA's. Close price would be most common
+
+// * - in this version, added a calculation oprion for momentum as % of the filter (called "relative" versus the absolute approach in a classic MACD) - this adds couple of improvements
+
+// 1 - when a chart is zoomed out to view a long time window (example: 5 years on 1W bars), values from extreme ends of time axis are comparable and scaled properly - not the case with a MACD
+
+// 2 - these % values can be directly used in analysis or to set SL (for example, price was x% below the filter MA at so-and-so time) - which is more meaningful than looking at an abs value
+
+// 3 - the momentum values can be comapred across different assets / symbols
+
+ 
+
+//==============================================================================
+
+// updated this version of LazyLine() to reflect a regular WMA for length < 5
+
+f_LazyLine(_data, _length) =>
+
+    w1 = 0,     w2 = 0,     w3 = 0
+
+    L1 = 0.0,   L2 = 0.0,   L3 = 0.0
+
+    w = _length / 3
+
+ 
+
+    if _length > 4
+
+        w2 := math.round(w)
+
+        w1 := math.round((_length - w2) / 2)
+
+        w3 := int((_length - w2) / 2)
+
+ 
+
+        L1 := ta.wma(_data, w1)
+
+        L2 := ta.wma(L1, w2)
+
+        L3 := ta.wma(L2, w3)
+
+       
+
+    else
+
+        L3 := ta.wma(_data, _length)
+
+       
+
+    L3
+
+//==============================================================================
+
+ 
+
+// =============================================================================    
+
+f_getMA(source, length, type) =>
+
+    type == "SMA" ? ta.sma(source, length) :
+
+      type == "EMA" ? ta.ema(source, length) :
+
+      type == "WMA" ? ta.wma(source, length) :
+
+      type == "HMA" ? ta.hma(source, length) :
+
+      f_LazyLine(source, length)
+
+// =============================================================================    
+
+ 
+
+// ------------------------------------------------------------------------------------------------
+
+// Inputs
+
+// ------------------------------------------------------------------------------------------------
+
+ 
+
+grp_1 = 'Price Proxy & Signal Lines :'
+
+grp_2 = 'Fast & Slow Lines :'
+
+grp_3 = 'Filter MA / Baseline :'
+
+ 
+
+Calc_Opt   = input.string('Relative', title = 'Calc Option', options = ['Relative', 'Classic'])
+
+ 
+
+Proxy_Src    = input.source(close,   title='Proxy Source',          inline = 'Proxy', group = grp_1)
+
+Proxy_Length = input.int(8,          title = 'Length',   minval = 1, inline = 'Proxy', group = grp_1)
+
+Proxy_Type   = input.string('RSS_WMA', title = 'Type',                    inline = 'Proxy',
+
+  options = ['RSS_WMA', 'WMA', 'EMA', 'SMA', 'HMA'], group = grp_1)
+
+ 
+
+Sig_Delay   =   input.int(7,          title = 'Proxy Signal Delay',   minval = 1, inline = 'Signal', group = grp_1)
+
+Sig_Type    = input.string('EMA', title = 'Type',                    inline = 'Signal',
+
+  options = ['RSS_WMA', 'WMA', 'EMA', 'SMA', 'HMA'], group = grp_1)
+
+ 
+
+Fast_Src    = input.source(close,   title='Fast MA Source',          inline = 'Fast', group = grp_2)
+
+Fast_Length = input.int(10,          title = 'Length',   minval = 1, inline = 'Fast', group = grp_2)
+
+Fast_Type   = input.string('SMA', title = 'Type',                    inline = 'Fast',
+
+  options = ['RSS_WMA', 'WMA', 'EMA', 'SMA', 'HMA'], group = grp_2)
+
+ 
+
+Slow_Src    = input.source(close,    title='Slow MA Source',         inline = 'Slow', group = grp_2)
+
+Slow_Length = input.int(20,          title='Length',     minval = 1, inline = 'Slow', group = grp_2)
+
+Slow_Type   = input.string('SMA', title = 'Type',                    inline = 'Slow',
+
+  options = ['RSS_WMA', 'WMA', 'EMA', 'SMA', 'HMA'], group = grp_2)
+
+ 
+
+Slow_Delay  = input.int(3,          title='Slow Delay (1 = None)',       minval = 1, group = grp_2)
+
+ 
+
+Fil_Src    = input.source(close,    title='Source',         inline = 'Filter', group = grp_3)
+
+Fil_Length  = input.int(40,       title='Length', minval = 1, inline = 'Filter', group = grp_3)
+
+Fil_Type    = input.string('SMA', title = 'Type',                   inline = 'Filter', group = grp_3,
+
+  options = ['RSS_WMA', 'WMA', 'EMA', 'SMA', 'HMA'])
+
+ 
+
+ 
+
+// ------------------------------------------------------------------------------------------------
+
+// Calculation
+
+// ------------------------------------------------------------------------------------------------
+
+ 
+
+Proxy     = f_getMA(Proxy_Src, Proxy_Length, Proxy_Type)
+
+ 
+
+Fast      = f_getMA(Fast_Src, Fast_Length, Fast_Type)
+
+Slow      = f_getMA(Slow_Src, Slow_Length, Slow_Type)
+
+ 
+
+Filter    = f_getMA(Fil_Src, Fil_Length, Fil_Type)
+
+ 
+
+// If "Relative" Calc option was selected for momentum calc, then we divide by Filter value and multiply by 100 -- else, use 1 (that's the classic MACD mode)
+
+Calc_Adj = Calc_Opt == "Relative" ? 100 / Filter : 1
+
+ 
+
+Proxy_M   = (Proxy - Filter) * Calc_Adj
+
+Signal_M  = f_getMA(Proxy_M, Sig_Delay, Sig_Type)
+
+ 
+
+Fast_M    = (Fast - Filter) * Calc_Adj
+
+Slow_M    = (Slow - Filter) * Calc_Adj
+
+ 
+
+Rel_M     = ta.wma(Slow_M, Slow_Delay)
+
+ 
+
+// prep the Momentum bars
+
+o = fixnan(Rel_M)                           // fixes NaN values - observed mainly on Renko
+
+c = fixnan(Fast_M)
+
+h = math.max(o, c)
+
+l = math.min(o, c)
+
+ 
+
+rising      = ta.change(c) > 0
+
+ 
+
+ 
+
+// ------------------------------------------------------------------------------------------------
+
+// Colors & Plots
+
+// ------------------------------------------------------------------------------------------------
+
+ 
+
+c_barup     = color.new(#11ff20, 60)
+
+c_bardn     = color.new(#ff1111, 60)
+
+c_bardj     = color.new(#ffffff, 50)
+
+ 
+
+c_barupb    = color.new(#1b5e20, 50)
+
+c_bardnb    = color.new(#981919, 50)
+
+c_bardjb    = color.new(#9598a1, 50)
+
+ 
+
+c_base      = color.new(#2424f0, 50)
+
+ 
+
+// 2-color for Proxy Line
+
+c_prox      = Proxy_M > 0 ? color.new(#33ff00, 0) : color.new(#ff1111, 0)
+
+ 
+
+c_sig       = color.new(#00bcd4, 25)
+
+ 
+
+hline(0, title = 'Base Line', color = c_base, linestyle = hline.style_solid, linewidth = 2)
+
+ 
+
+barcolor    = c > o and rising ? c_barup : c < o and not rising ? c_bardn : c_bardj
+
+borcolor    = c > o and rising ? c_barupb : c < o and not rising ? c_bardnb : c_bardjb
+
+plotcandle(o, h, l, c, 'MoBars', barcolor, barcolor, bordercolor = borcolor, display = display.pane)
+
+ 
+
+plot(Signal_M, title='Proxy Signal',    color = c_sig,  linewidth = 2)
+
+plot(Proxy_M,  title='Price Proxy MA',  color = c_prox, linewidth = 3)
+
+ 
+
+ 
+
+// ===========================================================================================================
+
+// .................. alerts
+
+// the momentum alerts will trigger as soon as the Momentum Bar "touches" above or below the filter line
+
+// in K-MACD, New alerts added for when the Price proxy crosses the signal line
+
+// and for when the price proxy crosses the zero line - this one possibly the most commonly used alert, so will appear first in alerts list  
+
+// ===========================================================================================================
+
+ 
+
+Al_Mobars_up    = ta.crossover(h, 0)
+
+Al_Mobars_dn    = ta.crossunder(l, 0)
+
+Al_Mobars_swing = Al_Mobars_up or Al_Mobars_dn
+
+ 
+
+alertcondition(Al_Mobars_up,    "C1.  MoBars Crossing 0 Up",         "MoBars Up - Bullish Mode Detected!")
+
+alertcondition(Al_Mobars_dn,    "C2.  MoBars Crossing 0 Down",       "MoBars Down - Bearish Mode Detected!")
+
+alertcondition(Al_Mobars_swing, "C3.  MoBars Crossing 0",            "Mobars Swing - Possible Reversal Detected!")
+
+ 
+
+// More Alerts
+
+ 
+
+Al_Price_up = ta.crossover(Proxy_M, 0)
+
+Al_Price_dn = ta.crossunder(Proxy_M, 0)
+
+Al_Price_swing = Al_Price_up or Al_Price_up
+
+ 
+
+alertcondition(Al_Price_up,    "A1.  Proxy Crossing 0 Up",         "Proxy Above 0 - Long Mode Detected!")
+
+alertcondition(Al_Price_dn,    "A2.  Proxy Crossing 0 Down",       "Proxy Below 0 - Short Mode Detected!")
+
+alertcondition(Al_Price_swing, "A3.  Proxy Crossing 0",            "Proxy Swing - Possible Reversal Detected!")
+
+ 
+
+Al_Price_x_Singal_up = ta.crossover(Proxy_M, Signal_M)
+
+Al_Price_x_Singal_dn = ta.crossunder(Proxy_M, Signal_M)
+
+Al_Price_x_Singal = ta.cross(Proxy_M, Signal_M)
+
+ 
+
+alertcondition(Al_Price_x_Singal_up,  "B1.  Proxy Crossing Signal Up",         "Proxy Crossing Signal Up!")
+
+alertcondition(Al_Price_x_Singal_dn,  "B2.  Proxy Crossing Signal Down",       "Proxy Crossing Signal Down!")
+
+alertcondition(Al_Price_x_Singal,     "B3.  Proxy Crossing Signal",            "Proxy Crossing Signal!")
+
+ 
+
+ 
+
+// ===========================================================================================================
+
+// Price hitting a "New 52wk Hi/Lo":
+
+// Using a simple approach - works only on TF's 1D and higher - may improve as/if needed
+
+// v1.2 : Fixed the workaround for periods on chart less than 52WK since IPO (like MBLY, XPEV,..etc) - by using the all-time hi/lo values instead
+
+// - so now this would work from wk #2 as "new all-time hi/lo" -- values are printed in the data windows for use.
+
+ 
+
+var HiBL = high, var LoBL = low
+
+var lkhi = HiBL, var lklo = LoBL
+
+lkhi := math.max(lkhi, high)
+
+lklo := math.min(lklo, low)
+
+ 
+
+[hi52WK, lo52WK] = request.security(syminfo.tickerid, "W", [ta.highest(52), ta.lowest(52)])
+
+ 
+
+// if the security call returns NA, use last known hi/lo values
+
+v_hi52WK = na(hi52WK) ? lkhi : hi52WK
+
+v_lo52WK = na(lo52WK) ? lklo : lo52WK
+
+ 
+
+plotchar(lkhi, "All-time Hi", char = "", color = color.yellow, editable = false, display = display.data_window)
+
+plotchar(lklo, "All-time Lo", char = "", color = color.yellow, editable = false, display = display.data_window)
+
+ 
+
+// This ensures we don't miss new 52Wk Hi/Lo's that we hit in the current week.
+
+// assuming trading week is 5 days (any issue with futures & crypto's ?)
+
+[hi1WK, lo1WK]   = request.security(syminfo.tickerid, "D", [ta.highest(5), ta.lowest(5)])
+
+MaxHi   = math.max(v_hi52WK, hi1WK)
+
+MaxLo   = math.min(v_lo52WK, lo1WK)
+
+ 
+
+//set a flag if a new 52Wk Hi/Lo occurs
+
+N52HL   = high == MaxHi ? 1 : low == MaxLo ? -1 : 0
+
+ 
+
+//plot
+
+NewHL   = N52HL == 0 ? na : 0
+
+c_NewHL = N52HL == 1 ? color.green : color.red
+
+plot(NewHL, title = "New 52wk Hi/Lo", color = c_NewHL, linewidth = 5, style = plot.style_circles, display = display.pane)
+
+ 
+
+gain52Wk = (close - MaxLo) / (MaxHi - MaxLo) * 100
+
+ 
+
+plotchar(MaxHi, "52Wk Hi", char = "",  color = color.green, editable = false, display = display.status_line + display.data_window)
+
+plotchar(MaxLo, "52Wk Low", char = "", color = color.red, editable = false, display = display.status_line + display.data_window)
+
+ 
+
+plotchar(gain52Wk, "Price % within 52Wk Hi/Low", char = "", color = gain52Wk > 50 ? color.green : color.red, editable=false, display=display.status_line + display.data_window)

@@ -1,0 +1,26 @@
+{%extends "base.html"%}
+{%load templatefunctions%}
+
+{%block content%}
+
+<div class="row">
+{%for k,v in data.items%}
+    {%if k != "Index"%}
+    <div class="card col-2" style="padding:5px;margin:5px;">
+    <h5>{{k}}</h5>
+    <table class="table table-sm">
+    {{v|showIndustryOI|safe}}
+    {%for co in v%}
+    {% comment %} <tr>
+        <td>{{co.0}}</td>
+        <td>{{co.0}}</td>
+    </tr>    {% endcomment %}
+    
+    {%endfor%}
+    </table>
+    </div>
+    {%endif%}
+    
+{%endfor%}
+</div>
+{%endblock%}

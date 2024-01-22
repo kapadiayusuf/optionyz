@@ -1,0 +1,10 @@
+{%extends "base.html"%}
+{%load templatefunctions%}
+
+{%block content%}
+
+<div class="row">
+    {{data|showTop20Dashboard|safe}}
+</div> 
+
+{%endblock%}

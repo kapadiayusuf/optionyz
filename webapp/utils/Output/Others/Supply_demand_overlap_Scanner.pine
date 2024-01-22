@@ -1,0 +1,605 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © ZaKap
+
+//@version=4
+
+
+study("Supply/Demand Zone Overlap Scanner", overlay=true)
+
+//Define Stocks to Scan - Current limit 40 Stocks
+
+src1 = close
+
+
+time_frame1 =  '15'
+time_frame2 =  '60' 
+//time_frame1 = timeframe.period 
+// if (time_frame1 == '1')
+//     time_frame2 = '5'
+// else if (time_frame1 == '5')
+//     time_frame2 = '15'
+// else if (time_frame1 == '15')
+//     time_frame2 = '60'
+// else if (time_frame1 == '60')
+//     time_frame2 = ' D'
+// else if (time_frame1 == 'D')
+//     time_frame2 = 'W'    
+
+// t1 = 'NSE:MARUTI1!', BU1='LONG',RANK1='LR1'
+// t2 = 'NSE:BANKBARODA1!', BU2='LONG',RANK2='LR2'
+// t3 = 'NSE:AXISBANK1!', BU3='LONG',RANK3='LR3'
+// t4 = 'NSE:BANDHANBNK1!', BU4='LONG',RANK4='LR4'
+// t5 = 'NSE:SBICARD1!', BU5='LONG',RANK5='LR5'
+// t6 = 'NSE:TATAPOWER1!', BU6='LONG',RANK6='LR6'
+// t7 = 'NSE:SBIN1!', BU7='LONG',RANK7='LR7'
+// t8 = 'NSE:FEDERALBNK1!', BU8='LONG',RANK8='LR8'
+// t9 = 'NSE:INDUSINDBK1!', BU9='LONG',RANK9='LR9'
+// t10 = 'NSE:GODREJCP1!', BU10='LONG',RANK10='LR10'
+// t11 = 'NSE:MPHASIS1!', BU11='LONG',RANK11='LR11'
+// t12 = 'NSE:CUMMINSIND1!', BU12='LONG',RANK12='LR12'
+// t13 = 'NSE:UBL1!', BU13='LONG',RANK13='LR13'
+// t14 = 'NSE:ATUL1!', BU14='LONG',RANK14='LR14'
+// t15 = 'NSE:PAGEIND1!', BU15='LONG',RANK15='LR15'
+// t16 = 'NSE:BHARTIARTL1!', BU16='LONG',RANK16='LR16'
+// t17 = 'NSE:SRF1!', BU17='LONG',RANK17='LR17'
+// t18 = 'NSE:HEROMOTOCO1!', BU18='LONG',RANK18='LR18'
+// t19 = 'NSE:SBIN1!', BU19='LONG',RANK19='LR19'
+// t20 = 'NSE:MCDOWELL_N1!', BU20='LONG',RANK20='LR20'
+
+// ////supertrend Alignment 1//////
+
+
+// ////supertrend Alignment 2//////
+
+
+// ////supertrend Alignment 3//////
+
+// ////AUTO SECTOR//////
+// t1 = 'NSE:MARUTI1!', t2 = 'NSE:TATAMOTORS1!', t3 = 'NSE:M_M1!', t4 = 'NSE:BAJAJ_AUTO1!', t5 = 'NSE:EICHERMOT1!', t6 = 'NSE:MOTHERSUMI1!', t7 = 'NSE:BOSCHLTD1!', t8 = 'NSE:HEROMOTOCO1!', t9 = 'NSE:BALKRISIND1!', t10 = 'NSE:ASHOKLEY1!', t11 = 'NSE:MRF1!', t12 = 'NSE:TVSMOTOR1!', t13 = 'NSE:ESCORTS1!', t14 = 'NSE:EXIDEIND1!', t15 = 'NSE:APOLLOTYRE1!', t16 = 'NSE:AMARAJABAT1!', t17 = '', t18 = '', t19 = '', t20 = ''
+
+// ////BANK SECTOR//////
+//t1 = 'NSE:HDFCBANK1!', t2 = 'NSE:ICICIBANK1!', t3 = 'NSE:SBIN1!', t4 = 'NSE:KOTAKBANK1!', t5 = 'NSE:AXISBANK1!', t6 = 'NSE:INDUSINDBK1!', t7 = 'NSE:BANKBARODA1!', t8 = 'NSE:BANDHANBNK1!', t9 = 'NSE:PNB1!', t10 = 'NSE:CANBK1!', t11 = 'NSE:AUBANK1!', t12 = 'NSE:IDFCFIRSTB1!', t13 = 'NSE:FEDERALBNK1!', t14 = 'NSE:CUB1!', t15 = 'NSE:RBLBANK1!', t16 = '', t17 = '', t18 = '', t19 = '', t20 = ''
+
+// ////FINANCE SECTOR//////
+//t1 = 'NSE:HDFC1!', t2 = 'NSE:BAJFINANCE1!', t3 = 'NSE:BAJAJFINSV1!', t4 = 'NSE:SBICARD1!', t5 = 'NSE:MUTHOOTFIN1!', t6 = 'NSE:HDFCAMC1!', t7 = 'NSE:CHOLAFIN1!', t8 = 'NSE:MFSL1!', t9 = 'NSE:PFC1!', t10 = 'NSE:SRTRANSFIN1!', t11 = 'NSE:ABCAPITAL1!', t12 = 'NSE:RECLTD1!', t13 = 'NSE:NAM_INDIA1!', t14 = 'NSE:LICHSGFIN1!', t15 = 'NSE:M_MFIN1!', t16 = 'NSE:L_TFH1!', t17 = 'NSE:MANAPPURAM1!', t18 = 'NSE:IBULHSGFIN1!', t19 = 'NSE:IDFC1!', t20 = 'NSE:CANFINHOME1!'
+
+// ////FMCG SECTOR//////
+// t1 = 'NSE:HINDUNILVR1!', t2 = 'NSE:ITC1!', t3 = 'NSE:NESTLEIND1!', t4 = 'NSE:DABUR1!', t5 = 'NSE:GODREJCP1!', t6 = 'NSE:BRITANNIA1!', t7 = 'NSE:SIEMENS1!', t8 = 'NSE:HAVELLS1!', t9 = 'NSE:TATACONSUM1!', t10 = 'NSE:MCDOWELL_N1!', t11 = 'NSE:MARICO1!', t12 = 'NSE:BEL1!', t13 = 'NSE:PAGEIND1!', t14 = 'NSE:ASTRAL1!', t15 = 'NSE:HAL1!', t16 = 'NSE:UBL1!', t17 = 'NSE:VOLTAS1!', t18 = 'NSE:TRENT1!', t19 = 'NSE:COLPAL1!', t20 = 'NSE:HONAUT1!'
+
+// ////FMCG &  TELECOM SECTOR//////
+//t1 = 'NSE:DIXON1!', t2 = 'NSE:ABFRL1!', t3 = 'NSE:CROMPTON1!', t4 = 'NSE:CUMMINSIND1!', t5 = 'NSE:BATAINDIA1!', t6 = 'NSE:WHIRLPOOL1!', t7 = 'NSE:BHEL1!', t8 = 'NSE:BALRAMCHIN1!', t10 = 'NSE:INDUSTOWER1!', t11 = 'NSE:TATACOMM1!', t12 = 'NSE:IDEA1!', t13 = 'NSE:GRASIM1!', t14 = '', t15 = '', t16 = '', t17 = '', t18 = '', t19 = '', t20 = ''
+
+// ////I.T SECTOR//////
+//t1 = 'NSE:TCS1!', t2 = 'NSE:INFY1!', t3 = 'NSE:HCLTECH1!', t4 = 'NSE:WIPRO1!', t5 = 'NSE:TECHM1!', t6 = 'NSE:LTI1!', t7 = 'NSE:MINDTREE1!', t8 = 'NSE:NAUKRI1!', t9 = 'NSE:MPHASIS1!', t10 = 'NSE:LTTS1!', t11 = 'NSE:OFSS1!', t12 = 'NSE:COFORGE1!', t13 = 'NSE:PERSISTENT1!', t14 = 'NSE:INDIAMART1!', t15 = 'NSE:BSOFT1!', t16 = 'NSE:FSL1!', t17 = '', t18 = '', t19 = '', t20 = ''
+
+// ////INDUSTRIALS SECTOR//////
+//t1 = 'NSE:RELIANCE1!', t2 = 'NSE:ASIANPAINT1!', t3 = 'NSE:ULTRACEMCO1!', t4 = 'NSE:PIDILITIND1!', t5 = 'NSE:VEDL1!', t6 = 'NSE:IOC1!', t7 = 'NSE:COALINDIA1!', t8 = 'NSE:SHREECEM1!', t9 = 'NSE:BPCL1!', t10 = 'NSE:AMBUJACEM1!', t11 = 'NSE:SRF1!', t12 = 'NSE:BERGEPAINT1!', t13 = 'NSE:GAIL1!', t14 = 'NSE:UPL1!', t15 = 'NSE:HINDPETRO1!', t16 = 'NSE:ACC1!', t17 = 'NSE:NMDC1!', t18 = 'NSE:PIIND1!', t19 = 'NSE:POLYCAB1!', t20 = 'NSE:AARTIIND1!'
+
+// ////INDUSTRIALS & MEDIA SECTOR//////
+//t1 = 'NSE:DALBHARAT1!', t2 = 'NSE:BHARATFORG1!', t3 = 'NSE:DEEPAKNTR1!', t4 = 'NSE:PETRONET1!', t5 = 'NSE:IGL1!', t6 = 'NSE:ATUL1!', t7 = 'NSE:JKCEMENT1!', t8 = 'NSE:TATACHEM1!', t9 = 'NSE:RAMCOCEM1!', t10 = 'NSE:COROMANDEL1!', t11 = 'NSE:NAVINFLUOR1!', t12 = 'NSE:CHAMBLFERT1!', t13 = 'NSE:GSPL1!', t14 = 'NSE:MGL1!', t15 = 'NSE:INDIACEM1!', t16 = 'NSE:GNFC1!', t17 = 'NSE:ZEEL1!', t18 = 'NSE:SUNTV1!', t19 = 'NSE:PVR1!', t20 = 'NSE:DELTACORP1!'
+
+// ////METALS & MISC & OIL SECTOR//////
+t1 = 'NSE:JSWSTEEL1!', t2 = 'NSE:TATASTEEL1!', t3 = 'NSE:HINDALCO1!', t4 = 'NSE:SAIL1!', t5 = 'NSE:JINDALSTEL1!', t6 = 'NSE:NATIONALUM1!', t7 = 'NSE:HINDCOPPER1!', t8 = 'NSE:TITAN1!', t9 = 'NSE:POWERGRID1!', t10 = 'NSE:NTPC1!', t11 = 'NSE:TATAPOWER1!', t12 = 'NSE:IRCTC1!', t13 = 'NSE:GUJGASLTD1!', t14 = 'NSE:TORNTPOWER1!', t15 = 'NSE:IEX1!', t16 = 'NSE:MCX1!', t17 = 'NSE:ONGC1!', t18 = '', t19 = '', t20 = ''
+
+// ////PHARMACEUTICALS SECTOR//////
+//t1 = 'NSE:SUNPHARMA1!', t2 = 'NSE:DIVISLAB1!', t3 = 'NSE:DRREDDY1!', t4 = 'NSE:CIPLA1!', t5 = 'NSE:APOLLOHOSP1!', t6 = 'NSE:PEL1!', t7 = 'NSE:TORNTPHARM1!', t8 = 'NSE:CADILAHC1!', t9 = 'NSE:ALKEM1!', t10 = 'NSE:LUPIN1!', t11 = 'NSE:BIOCON1!', t12 = 'NSE:AUROPHARMA1!', t13 = 'NSE:ABBOTINDIA1!', t14 = 'NSE:LALPATHLAB1!', t15 = 'NSE:LAURUSLABS1!', t16 = 'NSE:SYNGENE1!', t17 = 'NSE:PFIZER1!', t18 = 'NSE:APLLTD1!', t19 = 'NSE:METROPOLIS1!', t20 = 'NSE:GLENMARK1!'
+
+////PHARMACEUTICALS REALITY & SERVICES SECTOR//////
+//t1 = 'NSE:IPCALAB1!', t2 = 'NSE:GRANULES1!', t3 = 'NSE:STAR1!', t4 = 'NSE:JUBLFOOD1!', t5 = 'NSE:LT1!', t6 = 'NSE:ADANIPORTS1!', t7 = 'NSE:DLF1!', t8 = 'NSE:GODREJPROP1!', t9 = 'NSE:OBEROIRLTY1!', t10 = 'NSE:GMRINFRA1!', t11 = 'NSE:NBCC1!', t12 = 'NSE:ADANIENT1!', t13 = 'NSE:HDFCLIFE1!', t14 = 'NSE:SBILIFE1!', t15 = 'NSE:ICICIPRULI1!', t16 = 'NSE:INDIGO1!', t17 = 'NSE:ICICIGI1!', t18 = 'NSE:CONCOR1!', t19 = 'NSE:INDHOTEL1!', t20 = 'NSE:RAIN1!'
+
+
+SD_Overlap_Scanner(src1) =>
+
+    // Calculating RSI support & resistance bands
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    
+
+    RSI1Length = input(14, minval=1, title="RSI 1 Length",group="Supply Demand 1")
+    RSI1OBOSIn = input(defval="70 / 30", title="OB / OS", options=["70 / 30", "75 / 25", "80 / 20", "85 / 15", "90 / 10", "95 / 5"], group="Supply Demand 1")
+    NumberOfConfirmationBarsRSI1 = input(2, title="Confirmation Bars",group="Supply Demand 1")
+
+    RSI1SDColorIn          = input(color.new(color.blue, 85), "Fill Colors - Supply Demand", type = input.color, group="Supply Demand 1", inline = "Fill 1")
+    RSI1SupportColorIn     = input(color.new(color.lime, 80), "Support",                     type = input.color, group="Supply Demand 1", inline = "Fill 1")
+    RSI1ResistanceColorIn  = input(color.new(color.red,  80), "Resistance",                  type = input.color, group="Supply Demand 1", inline = "Fill 1")
+
+
+    RSI1 = rsi(src1, RSI1Length)
+
+    RSI1OB = RSI1OBOSIn == "70 / 30" ?  70 : RSI1OBOSIn == "75 / 25" ? 75 : RSI1OBOSIn == "80 / 20" ?   80 : RSI1OBOSIn == "90 / 10" ?  90 : RSI1OBOSIn == "95 / 5" ?   95 : 100    
+                        
+    RSI1OS = RSI1OBOSIn == "70 / 30" ? 30 : RSI1OBOSIn == "75 / 25" ? 25 : RSI1OBOSIn == "80 / 20" ? 20 : RSI1OBOSIn == "90 / 10" ? 10 : RSI1OBOSIn == "95 / 5" ? 5 : 0  
+    
+    RSI1incrementer_up   = RSI1 > RSI1OB ? 1 : 0
+    RSI1incrementer_down = RSI1 < RSI1OS ? 1 : 0
+    RSI1incrementer_both = RSI1 > RSI1OB or RSI1 < RSI1OS ? 1 : 0
+
+
+    RSI1rsx = 0
+
+
+    if RSI1incrementer_both
+        RSI1rsx := nz(RSI1rsx[1], 0) + RSI1incrementer_both
+        RSI1rsx
+    else
+        RSI1rsx = 0
+        RSI1rsx
+
+    RSI1rxH = if RSI1rsx >= NumberOfConfirmationBarsRSI1
+        RSI1x = high
+        RSI1x
+    RSI1rxL = if RSI1rsx >= NumberOfConfirmationBarsRSI1
+        RSI1y = low
+        RSI1y
+
+    RSI1rH = fixnan(RSI1rxH)
+    RSI1rL = fixnan(RSI1rxL)
+
+
+    ///////////////////////////////////////////////////////
+
+
+    RSI1rsu = 0
+
+
+    if RSI1incrementer_up
+        RSI1rsu := nz(RSI1rsu[1], 0) + RSI1incrementer_up
+        RSI1rsu
+    else
+        RSI1rsu = 0
+        RSI1rsu
+
+
+    RSI1rssH = if RSI1rsu >= NumberOfConfirmationBarsRSI1
+        RSI1x = high
+        RSI1x
+
+
+    RSI1rssL = if RSI1rsu >= NumberOfConfirmationBarsRSI1
+        RSI1y = low
+        RSI1y
+
+    RSI1ResistanceZoneHigh = fixnan(RSI1rssH)
+    RSI1ResistanceZoneLow  = fixnan(RSI1rssL)
+
+
+    ////////////////////////////////////////////////////////
+
+
+    RSI1rsd = 0
+
+
+    if RSI1incrementer_down
+        RSI1rsd := nz(RSI1rsd[1], 0) + RSI1incrementer_down
+        RSI1rsd
+    else
+        RSI1rsd = 0
+        RSI1rsd
+
+    RSI1rsrH = if RSI1rsd >= NumberOfConfirmationBarsRSI1
+        RSI1x = high
+        RSI1x
+
+    RSI1rsrL = if RSI1rsd >= NumberOfConfirmationBarsRSI1
+        RSI1y = low
+        RSI1y
+
+
+    RSI1SupportZoneHigh = fixnan(RSI1rsrH)
+    RSI1SupportZoneLow  = fixnan(RSI1rsrL)
+
+
+    ////////////////////////////////////////////////////////
+
+    //RSI1_ResZoneColor = RSI1ResistanceZoneHigh !=  RSI1ResistanceZoneHigh[1] ?  na : RSI1ResistanceColorIn
+    //RSI1_SupZoneColor = RSI1SupportZoneLow     !=  RSI1SupportZoneLow[1]     ?  na : RSI1SupportColorIn
+
+    //RSI1SDColor       = RSI1rH != RSI1rH[1]? na : RSI1SDColorIn
+
+    ////////////////////////////////////////////////////////
+
+    // RSI1RZHigh = plot(ShowRZ1 ? RSI1ResistanceZoneHigh : na, style=plot.style_cross, title="Resistance Zone - 1 - High", color=RSI1_ResZoneColor, transp=1)
+    // RSI1RZLow  = plot(ShowRZ1 ? RSI1ResistanceZoneLow  : na, style=plot.style_cross, title="Resistance Zone - 1 - Low",  transp=100)
+    // fill(RSI1RZHigh, RSI1RZLow, color=RSI1_ResZoneColor, title="Support Zone - 1 - Fill")
+
+    // RSI1SZHigh = plot(ShowSZ1 ? RSI1SupportZoneHigh    : na, style=plot.style_cross,    title="Support Zone - 1 - High", transp=100)
+    // RSI1SZLow  = plot(ShowSZ1 ? RSI1SupportZoneLow     : na, style=plot.style_cross,    title="Support Zone - 1 - Low",  transp=100)
+    // fill(RSI1SZHigh, RSI1SZLow, color=RSI1_SupZoneColor, title="Support Zone - 1 - Fill")
+
+
+    // PlotRSI1rH = plot(ShowSD1 ? RSI1rH : na,  style=plot.style_cross, linewidth=1, title="Supply Demand - 1 - High")
+    // PlotRSI1rL = plot(ShowSD1 ? RSI1rL : na,  style=plot.style_cross, linewidth=1, title="Supply Demand - 1 - Low")
+    // fill(PlotRSI1rH, PlotRSI1rL, color=RSI1SDColor, title="Supply Demand - 1 - Fill")
+
+    ////////////////////////////////////////////////////////
+
+    PriceInRSI1SDZone     = (close <= RSI1rH) and (close >= RSI1rL) and (RSI1rH == RSI1rH[1])
+    PriceEntersRSI1SDZone = (PriceInRSI1SDZone and not PriceInRSI1SDZone[1])
+
+    CandleAboveSDZone = (low > RSI1rL)
+    CandleBelowSDZone = (high < RSI1rH)
+    
+    
+
+    /////////////////////// RSISDZoneCheck   =1 on  price above SDzone , =-1 on price below SDzone , =0 on  none (non)
+    //RSISDZoneCheck =   (low > RSI1rL) ? 1 : (high < RSI1rH) ? -1 : 0                 
+    //alertcondition(PriceEntersRSI1SDZone,   title='Alert - Price Enters S/D Zone 1',    message='Price Enters S/D Zone 1 - RSI S/D')
+
+
+    //////////////////////////////////    END  RSI  SUPPLY DEMAND ZONE CHECK   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    [ RSI1rL ,RSI1rH , CandleAboveSDZone , CandleBelowSDZone ]
+[ RSI1rL ,RSI1rH , CandleAboveSDZone , CandleBelowSDZone ] =  SD_Overlap_Scanner(src1)
+
+
+
+//[SDZ1_Lower_ltf,  SDZ1_Higher_ltf] = security(t1, time_frame1, SD_Overlap_Scanner(src1))
+//[SDZ1_Lower_htf,  SDZ1_Higher_htf] = security(t1, time_frame2, SD_Overlap_Scanner(src1))
+
+
+//[SDZt1_Llevel_ltf, SDZt1_Hlevel_ltf , CandleAboveSDZone1_ltf , CandleBelowSDZone1_ltf ] = security(t1, time_frame1, SD_Overlap_Scanner(src1))
+[SDZt1_Llevel_ltf, SDZt1_Hlevel_ltf , CandleAboveSDZone1_ltf , CandleBelowSDZone1_ltf ] = security(t1, time_frame1, SD_Overlap_Scanner(src1))
+[SDZt2_Llevel_ltf, SDZt2_Hlevel_ltf , CandleAboveSDZone2_ltf , CandleBelowSDZone2_ltf ] = security(t2, time_frame1, SD_Overlap_Scanner(src1))
+[SDZt3_Llevel_ltf, SDZt3_Hlevel_ltf , CandleAboveSDZone3_ltf , CandleBelowSDZone3_ltf ] = security(t3, time_frame1, SD_Overlap_Scanner(src1))
+[SDZt4_Llevel_ltf, SDZt4_Hlevel_ltf , CandleAboveSDZone4_ltf , CandleBelowSDZone4_ltf ] = security(t4, time_frame1, SD_Overlap_Scanner(src1))
+[SDZt5_Llevel_ltf, SDZt5_Hlevel_ltf , CandleAboveSDZone5_ltf , CandleBelowSDZone5_ltf ] = security(t5, time_frame1, SD_Overlap_Scanner(src1))
+[SDZt6_Llevel_ltf, SDZt6_Hlevel_ltf , CandleAboveSDZone6_ltf , CandleBelowSDZone6_ltf ] = security(t6, time_frame1, SD_Overlap_Scanner(src1))
+[SDZt7_Llevel_ltf, SDZt7_Hlevel_ltf , CandleAboveSDZone7_ltf , CandleBelowSDZone7_ltf ] = security(t7, time_frame1, SD_Overlap_Scanner(src1))
+[SDZt8_Llevel_ltf, SDZt8_Hlevel_ltf , CandleAboveSDZone8_ltf , CandleBelowSDZone8_ltf ] = security(t8, time_frame1, SD_Overlap_Scanner(src1))
+[SDZt9_Llevel_ltf, SDZt9_Hlevel_ltf , CandleAboveSDZone9_ltf , CandleBelowSDZone9_ltf ] = security(t9, time_frame1, SD_Overlap_Scanner(src1))
+[SDZt10_Llevel_ltf, SDZt10_Hlevel_ltf , CandleAboveSDZone10_ltf , CandleBelowSDZone10_ltf ] = security(t10, time_frame1, SD_Overlap_Scanner(src1))
+[SDZt11_Llevel_ltf, SDZt11_Hlevel_ltf , CandleAboveSDZone11_ltf , CandleBelowSDZone11_ltf ] = security(t11, time_frame1, SD_Overlap_Scanner(src1))
+[SDZt12_Llevel_ltf, SDZt12_Hlevel_ltf , CandleAboveSDZone12_ltf , CandleBelowSDZone12_ltf ] = security(t12, time_frame1, SD_Overlap_Scanner(src1))
+[SDZt13_Llevel_ltf, SDZt13_Hlevel_ltf , CandleAboveSDZone13_ltf , CandleBelowSDZone13_ltf ] = security(t13, time_frame1, SD_Overlap_Scanner(src1))
+[SDZt14_Llevel_ltf, SDZt14_Hlevel_ltf , CandleAboveSDZone14_ltf , CandleBelowSDZone14_ltf ] = security(t14, time_frame1, SD_Overlap_Scanner(src1))
+[SDZt15_Llevel_ltf, SDZt15_Hlevel_ltf , CandleAboveSDZone15_ltf , CandleBelowSDZone15_ltf ] = security(t15, time_frame1, SD_Overlap_Scanner(src1))
+[SDZt16_Llevel_ltf, SDZt16_Hlevel_ltf , CandleAboveSDZone16_ltf , CandleBelowSDZone16_ltf ] = security(t16, time_frame1, SD_Overlap_Scanner(src1))
+[SDZt17_Llevel_ltf, SDZt17_Hlevel_ltf , CandleAboveSDZone17_ltf , CandleBelowSDZone17_ltf ] = security(t17, time_frame1, SD_Overlap_Scanner(src1))
+[SDZt18_Llevel_ltf, SDZt18_Hlevel_ltf , CandleAboveSDZone18_ltf , CandleBelowSDZone18_ltf ] = security(t18, time_frame1, SD_Overlap_Scanner(src1))
+[SDZt19_Llevel_ltf, SDZt19_Hlevel_ltf , CandleAboveSDZone19_ltf , CandleBelowSDZone19_ltf ] = security(t19, time_frame1, SD_Overlap_Scanner(src1))
+[SDZt20_Llevel_ltf, SDZt20_Hlevel_ltf , CandleAboveSDZone20_ltf , CandleBelowSDZone20_ltf ] = security(t20, time_frame1, SD_Overlap_Scanner(src1))
+
+
+//[SDZt1_Llevel_htf, SDZt1_Hlevel_htf , CandleAboveSDZone1_htf , CandleBelowSDZone1_htf ] = security(t1, time_frame2, SD_Overlap_Scanner(src1))
+
+[SDZt1_Llevel_htf, SDZt1_Hlevel_htf , CandleAboveSDZone1_htf , CandleBelowSDZone1_htf ] = security(t1, time_frame2, SD_Overlap_Scanner(src1))
+[SDZt2_Llevel_htf, SDZt2_Hlevel_htf , CandleAboveSDZone2_htf , CandleBelowSDZone2_htf ] = security(t2, time_frame2, SD_Overlap_Scanner(src1))
+[SDZt3_Llevel_htf, SDZt3_Hlevel_htf , CandleAboveSDZone3_htf , CandleBelowSDZone3_htf ] = security(t3, time_frame2, SD_Overlap_Scanner(src1))
+[SDZt4_Llevel_htf, SDZt4_Hlevel_htf , CandleAboveSDZone4_htf , CandleBelowSDZone4_htf ] = security(t4, time_frame2, SD_Overlap_Scanner(src1))
+[SDZt5_Llevel_htf, SDZt5_Hlevel_htf , CandleAboveSDZone5_htf , CandleBelowSDZone5_htf ] = security(t5, time_frame2, SD_Overlap_Scanner(src1))
+[SDZt6_Llevel_htf, SDZt6_Hlevel_htf , CandleAboveSDZone6_htf , CandleBelowSDZone6_htf ] = security(t6, time_frame2, SD_Overlap_Scanner(src1))
+[SDZt7_Llevel_htf, SDZt7_Hlevel_htf , CandleAboveSDZone7_htf , CandleBelowSDZone7_htf ] = security(t7, time_frame2, SD_Overlap_Scanner(src1))
+[SDZt8_Llevel_htf, SDZt8_Hlevel_htf , CandleAboveSDZone8_htf , CandleBelowSDZone8_htf ] = security(t8, time_frame2, SD_Overlap_Scanner(src1))
+[SDZt9_Llevel_htf, SDZt9_Hlevel_htf , CandleAboveSDZone9_htf , CandleBelowSDZone9_htf ] = security(t9, time_frame2, SD_Overlap_Scanner(src1))
+[SDZt10_Llevel_htf, SDZt10_Hlevel_htf , CandleAboveSDZone10_htf , CandleBelowSDZone10_htf ] = security(t10, time_frame2, SD_Overlap_Scanner(src1))
+[SDZt11_Llevel_htf, SDZt11_Hlevel_htf , CandleAboveSDZone11_htf , CandleBelowSDZone11_htf ] = security(t11, time_frame2, SD_Overlap_Scanner(src1))
+[SDZt12_Llevel_htf, SDZt12_Hlevel_htf , CandleAboveSDZone12_htf , CandleBelowSDZone12_htf ] = security(t12, time_frame2, SD_Overlap_Scanner(src1))
+[SDZt13_Llevel_htf, SDZt13_Hlevel_htf , CandleAboveSDZone13_htf , CandleBelowSDZone13_htf ] = security(t13, time_frame2, SD_Overlap_Scanner(src1))
+[SDZt14_Llevel_htf, SDZt14_Hlevel_htf , CandleAboveSDZone14_htf , CandleBelowSDZone14_htf ] = security(t14, time_frame2, SD_Overlap_Scanner(src1))
+[SDZt15_Llevel_htf, SDZt15_Hlevel_htf , CandleAboveSDZone15_htf , CandleBelowSDZone15_htf ] = security(t15, time_frame2, SD_Overlap_Scanner(src1))
+[SDZt16_Llevel_htf, SDZt16_Hlevel_htf , CandleAboveSDZone16_htf , CandleBelowSDZone16_htf ] = security(t16, time_frame2, SD_Overlap_Scanner(src1))
+[SDZt17_Llevel_htf, SDZt17_Hlevel_htf , CandleAboveSDZone17_htf , CandleBelowSDZone17_htf ] = security(t17, time_frame2, SD_Overlap_Scanner(src1))
+[SDZt18_Llevel_htf, SDZt18_Hlevel_htf , CandleAboveSDZone18_htf , CandleBelowSDZone18_htf ] = security(t18, time_frame2, SD_Overlap_Scanner(src1))
+[SDZt19_Llevel_htf, SDZt19_Hlevel_htf , CandleAboveSDZone19_htf , CandleBelowSDZone19_htf ] = security(t19, time_frame2, SD_Overlap_Scanner(src1))
+[SDZt20_Llevel_htf, SDZt20_Hlevel_htf , CandleAboveSDZone20_htf , CandleBelowSDZone20_htf ] = security(t20, time_frame2, SD_Overlap_Scanner(src1))
+
+
+
+//overlap1 = (SDZt1_Llevel_ltf >= SDZt1_Llevel_htf and SDZt1_Llevel_ltf <= SDZt1_Hlevel_htf ) or (SDZt1_Hlevel_ltf >= SDZt1_Llevel_htf and SDZt1_Hlevel_ltf <= SDZt1_Hlevel_htf ) 
+overlap1= (SDZt1_Llevel_ltf >= SDZt1_Llevel_htf and SDZt1_Llevel_ltf <= SDZt1_Hlevel_htf ) or (SDZt1_Hlevel_ltf >= SDZt1_Llevel_htf and SDZt1_Hlevel_ltf <= SDZt1_Hlevel_htf )
+overlap2= (SDZt2_Llevel_ltf >= SDZt2_Llevel_htf and SDZt2_Llevel_ltf <= SDZt2_Hlevel_htf ) or (SDZt2_Hlevel_ltf >= SDZt2_Llevel_htf and SDZt2_Hlevel_ltf <= SDZt2_Hlevel_htf )
+overlap3= (SDZt3_Llevel_ltf >= SDZt3_Llevel_htf and SDZt3_Llevel_ltf <= SDZt3_Hlevel_htf ) or (SDZt3_Hlevel_ltf >= SDZt3_Llevel_htf and SDZt3_Hlevel_ltf <= SDZt3_Hlevel_htf )
+overlap4= (SDZt4_Llevel_ltf >= SDZt4_Llevel_htf and SDZt4_Llevel_ltf <= SDZt4_Hlevel_htf ) or (SDZt4_Hlevel_ltf >= SDZt4_Llevel_htf and SDZt4_Hlevel_ltf <= SDZt4_Hlevel_htf )
+overlap5= (SDZt5_Llevel_ltf >= SDZt5_Llevel_htf and SDZt5_Llevel_ltf <= SDZt5_Hlevel_htf ) or (SDZt5_Hlevel_ltf >= SDZt5_Llevel_htf and SDZt5_Hlevel_ltf <= SDZt5_Hlevel_htf )
+overlap6= (SDZt6_Llevel_ltf >= SDZt6_Llevel_htf and SDZt6_Llevel_ltf <= SDZt6_Hlevel_htf ) or (SDZt6_Hlevel_ltf >= SDZt6_Llevel_htf and SDZt6_Hlevel_ltf <= SDZt6_Hlevel_htf )
+overlap7= (SDZt7_Llevel_ltf >= SDZt7_Llevel_htf and SDZt7_Llevel_ltf <= SDZt7_Hlevel_htf ) or (SDZt7_Hlevel_ltf >= SDZt7_Llevel_htf and SDZt7_Hlevel_ltf <= SDZt7_Hlevel_htf )
+overlap8= (SDZt8_Llevel_ltf >= SDZt8_Llevel_htf and SDZt8_Llevel_ltf <= SDZt8_Hlevel_htf ) or (SDZt8_Hlevel_ltf >= SDZt8_Llevel_htf and SDZt8_Hlevel_ltf <= SDZt8_Hlevel_htf )
+overlap9= (SDZt9_Llevel_ltf >= SDZt9_Llevel_htf and SDZt9_Llevel_ltf <= SDZt9_Hlevel_htf ) or (SDZt9_Hlevel_ltf >= SDZt9_Llevel_htf and SDZt9_Hlevel_ltf <= SDZt9_Hlevel_htf )
+overlap10= (SDZt10_Llevel_ltf >= SDZt10_Llevel_htf and SDZt10_Llevel_ltf <= SDZt10_Hlevel_htf ) or (SDZt10_Hlevel_ltf >= SDZt10_Llevel_htf and SDZt10_Hlevel_ltf <= SDZt10_Hlevel_htf )
+overlap11= (SDZt11_Llevel_ltf >= SDZt11_Llevel_htf and SDZt11_Llevel_ltf <= SDZt11_Hlevel_htf ) or (SDZt11_Hlevel_ltf >= SDZt11_Llevel_htf and SDZt11_Hlevel_ltf <= SDZt11_Hlevel_htf )
+overlap12= (SDZt12_Llevel_ltf >= SDZt12_Llevel_htf and SDZt12_Llevel_ltf <= SDZt12_Hlevel_htf ) or (SDZt12_Hlevel_ltf >= SDZt12_Llevel_htf and SDZt12_Hlevel_ltf <= SDZt12_Hlevel_htf )
+overlap13= (SDZt13_Llevel_ltf >= SDZt13_Llevel_htf and SDZt13_Llevel_ltf <= SDZt13_Hlevel_htf ) or (SDZt13_Hlevel_ltf >= SDZt13_Llevel_htf and SDZt13_Hlevel_ltf <= SDZt13_Hlevel_htf )
+overlap14= (SDZt14_Llevel_ltf >= SDZt14_Llevel_htf and SDZt14_Llevel_ltf <= SDZt14_Hlevel_htf ) or (SDZt14_Hlevel_ltf >= SDZt14_Llevel_htf and SDZt14_Hlevel_ltf <= SDZt14_Hlevel_htf )
+overlap15= (SDZt15_Llevel_ltf >= SDZt15_Llevel_htf and SDZt15_Llevel_ltf <= SDZt15_Hlevel_htf ) or (SDZt15_Hlevel_ltf >= SDZt15_Llevel_htf and SDZt15_Hlevel_ltf <= SDZt15_Hlevel_htf )
+overlap16= (SDZt16_Llevel_ltf >= SDZt16_Llevel_htf and SDZt16_Llevel_ltf <= SDZt16_Hlevel_htf ) or (SDZt16_Hlevel_ltf >= SDZt16_Llevel_htf and SDZt16_Hlevel_ltf <= SDZt16_Hlevel_htf )
+overlap17= (SDZt17_Llevel_ltf >= SDZt17_Llevel_htf and SDZt17_Llevel_ltf <= SDZt17_Hlevel_htf ) or (SDZt17_Hlevel_ltf >= SDZt17_Llevel_htf and SDZt17_Hlevel_ltf <= SDZt17_Hlevel_htf )
+overlap18= (SDZt18_Llevel_ltf >= SDZt18_Llevel_htf and SDZt18_Llevel_ltf <= SDZt18_Hlevel_htf ) or (SDZt18_Hlevel_ltf >= SDZt18_Llevel_htf and SDZt18_Hlevel_ltf <= SDZt18_Hlevel_htf )
+overlap19= (SDZt19_Llevel_ltf >= SDZt19_Llevel_htf and SDZt19_Llevel_ltf <= SDZt19_Hlevel_htf ) or (SDZt19_Hlevel_ltf >= SDZt19_Llevel_htf and SDZt19_Hlevel_ltf <= SDZt19_Hlevel_htf )
+overlap20= (SDZt20_Llevel_ltf >= SDZt20_Llevel_htf and SDZt20_Llevel_ltf <= SDZt20_Hlevel_htf ) or (SDZt20_Hlevel_ltf >= SDZt20_Llevel_htf and SDZt20_Hlevel_ltf <= SDZt20_Hlevel_htf )
+
+
+label_Overlap_PriceAbove = 'SD Overlap & Price Above Band\n'
+label_Overlap_PriceBelow = 'SD Overlap & Price Below Band\n'
+label_Overlap_PriceWithin = 'SD Overlap & Price above Band\n'
+label_SDOverlap = 'SD Overlap \n'
+
+
+if overlap1 
+    if (CandleAboveSDZone1_ltf  or CandleAboveSDZone1_htf ) and (CandleBelowSDZone1_ltf or CandleBelowSDZone1_ltf)
+        label_Overlap_PriceWithin := label_Overlap_PriceWithin  +   t1 +'\n'
+    else if CandleAboveSDZone1_ltf  or CandleAboveSDZone1_htf 
+        label_Overlap_PriceAbove := label_Overlap_PriceAbove  +   t1 +'\n'
+    else if (CandleBelowSDZone1_ltf or CandleBelowSDZone1_ltf) 
+        label_Overlap_PriceBelow := label_Overlap_PriceBelow  +   t1  +'\n'            
+    else  
+        label_SDOverlap  := label_SDOverlap +   t1  +'\n'
+else 
+    na  
+if overlap2 
+    if (CandleAboveSDZone2_ltf  or CandleAboveSDZone2_htf ) and (CandleBelowSDZone2_ltf or CandleBelowSDZone2_ltf)
+        label_Overlap_PriceWithin := label_Overlap_PriceWithin  +   t2 +'\n'
+    else if CandleAboveSDZone2_ltf  or CandleAboveSDZone2_htf 
+        label_Overlap_PriceAbove := label_Overlap_PriceAbove  +   t2 +'\n'
+    else if (CandleBelowSDZone2_ltf or CandleBelowSDZone2_ltf) 
+        label_Overlap_PriceBelow := label_Overlap_PriceBelow  +   t2  +'\n'            
+    else  
+        label_SDOverlap  := label_SDOverlap +   t2  +'\n'
+else 
+    na  
+if overlap3 
+    if (CandleAboveSDZone3_ltf  or CandleAboveSDZone3_htf ) and (CandleBelowSDZone3_ltf or CandleBelowSDZone3_ltf)
+        label_Overlap_PriceWithin := label_Overlap_PriceWithin  +   t3 +'\n'
+    else if CandleAboveSDZone3_ltf  or CandleAboveSDZone3_htf 
+        label_Overlap_PriceAbove := label_Overlap_PriceAbove  +   t3 +'\n'
+    else if (CandleBelowSDZone3_ltf or CandleBelowSDZone3_ltf) 
+        label_Overlap_PriceBelow := label_Overlap_PriceBelow  +   t3  +'\n'            
+    else  
+        label_SDOverlap  := label_SDOverlap +   t3  +'\n'
+else 
+    na  
+if overlap4 
+    if (CandleAboveSDZone4_ltf  or CandleAboveSDZone4_htf ) and (CandleBelowSDZone4_ltf or CandleBelowSDZone4_ltf)
+        label_Overlap_PriceWithin := label_Overlap_PriceWithin  +   t4 +'\n'
+    else if CandleAboveSDZone4_ltf  or CandleAboveSDZone4_htf 
+        label_Overlap_PriceAbove := label_Overlap_PriceAbove  +   t4 +'\n'
+    else if (CandleBelowSDZone4_ltf or CandleBelowSDZone4_ltf) 
+        label_Overlap_PriceBelow := label_Overlap_PriceBelow  +   t4  +'\n'            
+    else  
+        label_SDOverlap  := label_SDOverlap +   t4  +'\n'
+else 
+    na  
+if overlap5 
+    if (CandleAboveSDZone5_ltf  or CandleAboveSDZone5_htf ) and (CandleBelowSDZone5_ltf or CandleBelowSDZone5_ltf)
+        label_Overlap_PriceWithin := label_Overlap_PriceWithin  +   t5 +'\n'
+    else if CandleAboveSDZone5_ltf  or CandleAboveSDZone5_htf 
+        label_Overlap_PriceAbove := label_Overlap_PriceAbove  +   t5 +'\n'
+    else if (CandleBelowSDZone5_ltf or CandleBelowSDZone5_ltf) 
+        label_Overlap_PriceBelow := label_Overlap_PriceBelow  +   t5  +'\n'            
+    else  
+        label_SDOverlap  := label_SDOverlap +   t5  +'\n'
+else 
+    na  
+if overlap6 
+    if (CandleAboveSDZone6_ltf  or CandleAboveSDZone6_htf ) and (CandleBelowSDZone6_ltf or CandleBelowSDZone6_ltf)
+        label_Overlap_PriceWithin := label_Overlap_PriceWithin  +   t6 +'\n'
+    else if CandleAboveSDZone6_ltf  or CandleAboveSDZone6_htf 
+        label_Overlap_PriceAbove := label_Overlap_PriceAbove  +   t6 +'\n'
+    else if (CandleBelowSDZone6_ltf or CandleBelowSDZone6_ltf) 
+        label_Overlap_PriceBelow := label_Overlap_PriceBelow  +   t6  +'\n'            
+    else  
+        label_SDOverlap  := label_SDOverlap +   t6  +'\n'
+else 
+    na  
+if overlap7 
+    if (CandleAboveSDZone7_ltf  or CandleAboveSDZone7_htf ) and (CandleBelowSDZone7_ltf or CandleBelowSDZone7_ltf)
+        label_Overlap_PriceWithin := label_Overlap_PriceWithin  +   t7 +'\n'
+    else if CandleAboveSDZone7_ltf  or CandleAboveSDZone7_htf 
+        label_Overlap_PriceAbove := label_Overlap_PriceAbove  +   t7 +'\n'
+    else if (CandleBelowSDZone7_ltf or CandleBelowSDZone7_ltf) 
+        label_Overlap_PriceBelow := label_Overlap_PriceBelow  +   t7  +'\n'            
+    else  
+        label_SDOverlap  := label_SDOverlap +   t7  +'\n'
+else 
+    na  
+if overlap8 
+    if (CandleAboveSDZone8_ltf  or CandleAboveSDZone8_htf ) and (CandleBelowSDZone8_ltf or CandleBelowSDZone8_ltf)
+        label_Overlap_PriceWithin := label_Overlap_PriceWithin  +   t8 +'\n'
+    else if CandleAboveSDZone8_ltf  or CandleAboveSDZone8_htf 
+        label_Overlap_PriceAbove := label_Overlap_PriceAbove  +   t8 +'\n'
+    else if (CandleBelowSDZone8_ltf or CandleBelowSDZone8_ltf) 
+        label_Overlap_PriceBelow := label_Overlap_PriceBelow  +   t8  +'\n'            
+    else  
+        label_SDOverlap  := label_SDOverlap +   t8  +'\n'
+else 
+    na  
+if overlap9 
+    if (CandleAboveSDZone9_ltf  or CandleAboveSDZone9_htf ) and (CandleBelowSDZone9_ltf or CandleBelowSDZone9_ltf)
+        label_Overlap_PriceWithin := label_Overlap_PriceWithin  +   t9 +'\n'
+    else if CandleAboveSDZone9_ltf  or CandleAboveSDZone9_htf 
+        label_Overlap_PriceAbove := label_Overlap_PriceAbove  +   t9 +'\n'
+    else if (CandleBelowSDZone9_ltf or CandleBelowSDZone9_ltf) 
+        label_Overlap_PriceBelow := label_Overlap_PriceBelow  +   t9  +'\n'            
+    else  
+        label_SDOverlap  := label_SDOverlap +   t9  +'\n'
+else 
+    na  
+if overlap10 
+    if (CandleAboveSDZone10_ltf  or CandleAboveSDZone10_htf ) and (CandleBelowSDZone10_ltf or CandleBelowSDZone10_ltf)
+        label_Overlap_PriceWithin := label_Overlap_PriceWithin  +   t10 +'\n'
+    else if CandleAboveSDZone10_ltf  or CandleAboveSDZone10_htf 
+        label_Overlap_PriceAbove := label_Overlap_PriceAbove  +   t10 +'\n'
+    else if (CandleBelowSDZone10_ltf or CandleBelowSDZone10_ltf) 
+        label_Overlap_PriceBelow := label_Overlap_PriceBelow  +   t10  +'\n'            
+    else  
+        label_SDOverlap  := label_SDOverlap +   t10  +'\n'
+else 
+    na  
+if overlap11 
+    if (CandleAboveSDZone11_ltf  or CandleAboveSDZone11_htf ) and (CandleBelowSDZone11_ltf or CandleBelowSDZone11_ltf)
+        label_Overlap_PriceWithin := label_Overlap_PriceWithin  +   t11 +'\n'
+    else if CandleAboveSDZone11_ltf  or CandleAboveSDZone11_htf 
+        label_Overlap_PriceAbove := label_Overlap_PriceAbove  +   t11 +'\n'
+    else if (CandleBelowSDZone11_ltf or CandleBelowSDZone11_ltf) 
+        label_Overlap_PriceBelow := label_Overlap_PriceBelow  +   t11  +'\n'            
+    else  
+        label_SDOverlap  := label_SDOverlap +   t11  +'\n'
+else 
+    na  
+if overlap12 
+    if (CandleAboveSDZone12_ltf  or CandleAboveSDZone12_htf ) and (CandleBelowSDZone12_ltf or CandleBelowSDZone12_ltf)
+        label_Overlap_PriceWithin := label_Overlap_PriceWithin  +   t12 +'\n'
+    else if CandleAboveSDZone12_ltf  or CandleAboveSDZone12_htf 
+        label_Overlap_PriceAbove := label_Overlap_PriceAbove  +   t12 +'\n'
+    else if (CandleBelowSDZone12_ltf or CandleBelowSDZone12_ltf) 
+        label_Overlap_PriceBelow := label_Overlap_PriceBelow  +   t12  +'\n'            
+    else  
+        label_SDOverlap  := label_SDOverlap +   t12  +'\n'
+else 
+    na  
+if overlap13 
+    if (CandleAboveSDZone13_ltf  or CandleAboveSDZone13_htf ) and (CandleBelowSDZone13_ltf or CandleBelowSDZone13_ltf)
+        label_Overlap_PriceWithin := label_Overlap_PriceWithin  +   t13 +'\n'
+    else if CandleAboveSDZone13_ltf  or CandleAboveSDZone13_htf 
+        label_Overlap_PriceAbove := label_Overlap_PriceAbove  +   t13 +'\n'
+    else if (CandleBelowSDZone13_ltf or CandleBelowSDZone13_ltf) 
+        label_Overlap_PriceBelow := label_Overlap_PriceBelow  +   t13  +'\n'            
+    else  
+        label_SDOverlap  := label_SDOverlap +   t13  +'\n'
+else 
+    na  
+if overlap14 
+    if (CandleAboveSDZone14_ltf  or CandleAboveSDZone14_htf ) and (CandleBelowSDZone14_ltf or CandleBelowSDZone14_ltf)
+        label_Overlap_PriceWithin := label_Overlap_PriceWithin  +   t14 +'\n'
+    else if CandleAboveSDZone14_ltf  or CandleAboveSDZone14_htf 
+        label_Overlap_PriceAbove := label_Overlap_PriceAbove  +   t14 +'\n'
+    else if (CandleBelowSDZone14_ltf or CandleBelowSDZone14_ltf) 
+        label_Overlap_PriceBelow := label_Overlap_PriceBelow  +   t14  +'\n'            
+    else  
+        label_SDOverlap  := label_SDOverlap +   t14  +'\n'
+else 
+    na  
+if overlap15 
+    if (CandleAboveSDZone15_ltf  or CandleAboveSDZone15_htf ) and (CandleBelowSDZone15_ltf or CandleBelowSDZone15_ltf)
+        label_Overlap_PriceWithin := label_Overlap_PriceWithin  +   t15 +'\n'
+    else if CandleAboveSDZone15_ltf  or CandleAboveSDZone15_htf 
+        label_Overlap_PriceAbove := label_Overlap_PriceAbove  +   t15 +'\n'
+    else if (CandleBelowSDZone15_ltf or CandleBelowSDZone15_ltf) 
+        label_Overlap_PriceBelow := label_Overlap_PriceBelow  +   t15  +'\n'            
+    else  
+        label_SDOverlap  := label_SDOverlap +   t15  +'\n'
+else 
+    na  
+if overlap16 
+    if (CandleAboveSDZone16_ltf  or CandleAboveSDZone16_htf ) and (CandleBelowSDZone16_ltf or CandleBelowSDZone16_ltf)
+        label_Overlap_PriceWithin := label_Overlap_PriceWithin  +   t16 +'\n'
+    else if CandleAboveSDZone16_ltf  or CandleAboveSDZone16_htf 
+        label_Overlap_PriceAbove := label_Overlap_PriceAbove  +   t16 +'\n'
+    else if (CandleBelowSDZone16_ltf or CandleBelowSDZone16_ltf) 
+        label_Overlap_PriceBelow := label_Overlap_PriceBelow  +   t16  +'\n'            
+    else  
+        label_SDOverlap  := label_SDOverlap +   t16  +'\n'
+else 
+    na  
+if overlap17 
+    if (CandleAboveSDZone17_ltf  or CandleAboveSDZone17_htf ) and (CandleBelowSDZone17_ltf or CandleBelowSDZone17_ltf)
+        label_Overlap_PriceWithin := label_Overlap_PriceWithin  +   t17 +'\n'
+    else if CandleAboveSDZone17_ltf  or CandleAboveSDZone17_htf 
+        label_Overlap_PriceAbove := label_Overlap_PriceAbove  +   t17 +'\n'
+    else if (CandleBelowSDZone17_ltf or CandleBelowSDZone17_ltf) 
+        label_Overlap_PriceBelow := label_Overlap_PriceBelow  +   t17  +'\n'            
+    else  
+        label_SDOverlap  := label_SDOverlap +   t17  +'\n'
+else 
+    na  
+if overlap18 
+    if (CandleAboveSDZone18_ltf  or CandleAboveSDZone18_htf ) and (CandleBelowSDZone18_ltf or CandleBelowSDZone18_ltf)
+        label_Overlap_PriceWithin := label_Overlap_PriceWithin  +   t18 +'\n'
+    else if CandleAboveSDZone18_ltf  or CandleAboveSDZone18_htf 
+        label_Overlap_PriceAbove := label_Overlap_PriceAbove  +   t18 +'\n'
+    else if (CandleBelowSDZone18_ltf or CandleBelowSDZone18_ltf) 
+        label_Overlap_PriceBelow := label_Overlap_PriceBelow  +   t18  +'\n'            
+    else  
+        label_SDOverlap  := label_SDOverlap +   t18  +'\n'
+else 
+    na  
+if overlap19 
+    if (CandleAboveSDZone19_ltf  or CandleAboveSDZone19_htf ) and (CandleBelowSDZone19_ltf or CandleBelowSDZone19_ltf)
+        label_Overlap_PriceWithin := label_Overlap_PriceWithin  +   t19 +'\n'
+    else if CandleAboveSDZone19_ltf  or CandleAboveSDZone19_htf 
+        label_Overlap_PriceAbove := label_Overlap_PriceAbove  +   t19 +'\n'
+    else if (CandleBelowSDZone19_ltf or CandleBelowSDZone19_ltf) 
+        label_Overlap_PriceBelow := label_Overlap_PriceBelow  +   t19  +'\n'            
+    else  
+        label_SDOverlap  := label_SDOverlap +   t19  +'\n'
+else 
+    na  
+if overlap20 
+    if (CandleAboveSDZone20_ltf  or CandleAboveSDZone20_htf ) and (CandleBelowSDZone20_ltf or CandleBelowSDZone20_ltf)
+        label_Overlap_PriceWithin := label_Overlap_PriceWithin  +   t20 +'\n'
+    else if CandleAboveSDZone20_ltf  or CandleAboveSDZone20_htf 
+        label_Overlap_PriceAbove := label_Overlap_PriceAbove  +   t20 +'\n'
+    else if (CandleBelowSDZone20_ltf or CandleBelowSDZone20_ltf) 
+        label_Overlap_PriceBelow := label_Overlap_PriceBelow  +   t20  +'\n'            
+    else  
+        label_SDOverlap  := label_SDOverlap +   t20  +'\n'
+else 
+    na  
+
+
+
+//label_SDOverlap := (SDZt1_Llevel_ltf >= SDZt1_Llevel_htf and  SDZt1_Llevel_ltf <= SDZt1_Hlevel_htf ) or (SDZt1_Hlevel_ltf  >= SDZt1_Llevel_htf and  SDZt1_Hlevel_ltf <= SDZt1_Hlevel_htf  )  ? 
+//                    label_SDOverlap  + t1  +'\n' : label_SDOverlap
+
+
+
+
+
+// label_SDOverlap := (SDZt1_Llevel_ltf >= SDZt1_Llevel_htf and SDZt1_Llevel_ltf <= SDZt1_Hlevel_htf ) or (SDZt1_Hlevel_ltf >= SDZt1_Llevel_htf and SDZt1_Hlevel_ltf <= SDZt1_Hlevel_htf ) ?
+//                      label_SDOverlap  + t1  +'\n' : label_SDOverlap
+// label_SDOverlap := (SDZt2_Llevel_ltf >= SDZt2_Llevel_htf and SDZt2_Llevel_ltf <= SDZt2_Hlevel_htf ) or (SDZt2_Hlevel_ltf >= SDZt2_Llevel_htf and SDZt2_Hlevel_ltf <= SDZt2_Hlevel_htf ) ?
+//                      label_SDOverlap  + t2  +'\n' : label_SDOverlap
+// label_SDOverlap := (SDZt3_Llevel_ltf >= SDZt3_Llevel_htf and SDZt3_Llevel_ltf <= SDZt3_Hlevel_htf ) or (SDZt3_Hlevel_ltf >= SDZt3_Llevel_htf and SDZt3_Hlevel_ltf <= SDZt3_Hlevel_htf ) ?
+//                      label_SDOverlap  + t3  +'\n' : label_SDOverlap
+// label_SDOverlap := (SDZt4_Llevel_ltf >= SDZt4_Llevel_htf and SDZt4_Llevel_ltf <= SDZt4_Hlevel_htf ) or (SDZt4_Hlevel_ltf >= SDZt4_Llevel_htf and SDZt4_Hlevel_ltf <= SDZt4_Hlevel_htf ) ?
+//                      label_SDOverlap  + t4  +'\n' : label_SDOverlap
+// label_SDOverlap := (SDZt5_Llevel_ltf >= SDZt5_Llevel_htf and SDZt5_Llevel_ltf <= SDZt5_Hlevel_htf ) or (SDZt5_Hlevel_ltf >= SDZt5_Llevel_htf and SDZt5_Hlevel_ltf <= SDZt5_Hlevel_htf ) ?
+//                      label_SDOverlap  + t5  +'\n' : label_SDOverlap
+// label_SDOverlap := (SDZt6_Llevel_ltf >= SDZt6_Llevel_htf and SDZt6_Llevel_ltf <= SDZt6_Hlevel_htf ) or (SDZt6_Hlevel_ltf >= SDZt6_Llevel_htf and SDZt6_Hlevel_ltf <= SDZt6_Hlevel_htf ) ?
+//                      label_SDOverlap  + t6  +'\n' : label_SDOverlap
+// label_SDOverlap := (SDZt7_Llevel_ltf >= SDZt7_Llevel_htf and SDZt7_Llevel_ltf <= SDZt7_Hlevel_htf ) or (SDZt7_Hlevel_ltf >= SDZt7_Llevel_htf and SDZt7_Hlevel_ltf <= SDZt7_Hlevel_htf ) ?
+//                      label_SDOverlap  + t7  +'\n' : label_SDOverlap
+// label_SDOverlap := (SDZt8_Llevel_ltf >= SDZt8_Llevel_htf and SDZt8_Llevel_ltf <= SDZt8_Hlevel_htf ) or (SDZt8_Hlevel_ltf >= SDZt8_Llevel_htf and SDZt8_Hlevel_ltf <= SDZt8_Hlevel_htf ) ?
+//                      label_SDOverlap  + t8  +'\n' : label_SDOverlap
+// label_SDOverlap := (SDZt9_Llevel_ltf >= SDZt9_Llevel_htf and SDZt9_Llevel_ltf <= SDZt9_Hlevel_htf ) or (SDZt9_Hlevel_ltf >= SDZt9_Llevel_htf and SDZt9_Hlevel_ltf <= SDZt9_Hlevel_htf ) ?
+//                      label_SDOverlap  + t9  +'\n' : label_SDOverlap
+// label_SDOverlap := (SDZt10_Llevel_ltf >= SDZt10_Llevel_htf and SDZt10_Llevel_ltf <= SDZt10_Hlevel_htf ) or (SDZt10_Hlevel_ltf >= SDZt10_Llevel_htf and SDZt10_Hlevel_ltf <= SDZt10_Hlevel_htf ) ?
+//                      label_SDOverlap  + t10  +'\n' : label_SDOverlap
+// label_SDOverlap := (SDZt11_Llevel_ltf >= SDZt11_Llevel_htf and SDZt11_Llevel_ltf <= SDZt11_Hlevel_htf ) or (SDZt11_Hlevel_ltf >= SDZt11_Llevel_htf and SDZt11_Hlevel_ltf <= SDZt11_Hlevel_htf ) ?
+//                      label_SDOverlap  + t11  +'\n' : label_SDOverlap
+// label_SDOverlap := (SDZt12_Llevel_ltf >= SDZt12_Llevel_htf and SDZt12_Llevel_ltf <= SDZt12_Hlevel_htf ) or (SDZt12_Hlevel_ltf >= SDZt12_Llevel_htf and SDZt12_Hlevel_ltf <= SDZt12_Hlevel_htf ) ?
+//                      label_SDOverlap  + t12  +'\n' : label_SDOverlap
+// label_SDOverlap := (SDZt13_Llevel_ltf >= SDZt13_Llevel_htf and SDZt13_Llevel_ltf <= SDZt13_Hlevel_htf ) or (SDZt13_Hlevel_ltf >= SDZt13_Llevel_htf and SDZt13_Hlevel_ltf <= SDZt13_Hlevel_htf ) ?
+//                      label_SDOverlap  + t13  +'\n' : label_SDOverlap
+// label_SDOverlap := (SDZt14_Llevel_ltf >= SDZt14_Llevel_htf and SDZt14_Llevel_ltf <= SDZt14_Hlevel_htf ) or (SDZt14_Hlevel_ltf >= SDZt14_Llevel_htf and SDZt14_Hlevel_ltf <= SDZt14_Hlevel_htf ) ?
+//                      label_SDOverlap  + t14  +'\n' : label_SDOverlap
+// label_SDOverlap := (SDZt15_Llevel_ltf >= SDZt15_Llevel_htf and SDZt15_Llevel_ltf <= SDZt15_Hlevel_htf ) or (SDZt15_Hlevel_ltf >= SDZt15_Llevel_htf and SDZt15_Hlevel_ltf <= SDZt15_Hlevel_htf ) ?
+//                      label_SDOverlap  + t15  +'\n' : label_SDOverlap
+// label_SDOverlap := (SDZt16_Llevel_ltf >= SDZt16_Llevel_htf and SDZt16_Llevel_ltf <= SDZt16_Hlevel_htf ) or (SDZt16_Hlevel_ltf >= SDZt16_Llevel_htf and SDZt16_Hlevel_ltf <= SDZt16_Hlevel_htf ) ?
+//                      label_SDOverlap  + t16  +'\n' : label_SDOverlap
+// label_SDOverlap := (SDZt17_Llevel_ltf >= SDZt17_Llevel_htf and SDZt17_Llevel_ltf <= SDZt17_Hlevel_htf ) or (SDZt17_Hlevel_ltf >= SDZt17_Llevel_htf and SDZt17_Hlevel_ltf <= SDZt17_Hlevel_htf ) ?
+//                      label_SDOverlap  + t17  +'\n' : label_SDOverlap
+// label_SDOverlap := (SDZt18_Llevel_ltf >= SDZt18_Llevel_htf and SDZt18_Llevel_ltf <= SDZt18_Hlevel_htf ) or (SDZt18_Hlevel_ltf >= SDZt18_Llevel_htf and SDZt18_Hlevel_ltf <= SDZt18_Hlevel_htf ) ?
+//                      label_SDOverlap  + t18  +'\n' : label_SDOverlap
+// label_SDOverlap := (SDZt19_Llevel_ltf >= SDZt19_Llevel_htf and SDZt19_Llevel_ltf <= SDZt19_Hlevel_htf ) or (SDZt19_Hlevel_ltf >= SDZt19_Llevel_htf and SDZt19_Hlevel_ltf <= SDZt19_Hlevel_htf ) ?
+//                      label_SDOverlap  + t19  +'\n' : label_SDOverlap
+// label_SDOverlap := (SDZt20_Llevel_ltf >= SDZt20_Llevel_htf and SDZt20_Llevel_ltf <= SDZt20_Hlevel_htf ) or (SDZt20_Hlevel_ltf >= SDZt20_Llevel_htf and SDZt20_Hlevel_ltf <= SDZt20_Hlevel_htf ) ? 
+//                      label_SDOverlap  + t20  +'\n' : label_SDOverlap
+
+
+
+
+
+f_fillCell(_table, _column, _row, _value, _color , _transp ,_width) =>
+    //_transp = 80
+    _cellText = tostring(_value) 
+    table.cell(_table, _column, _row, _cellText, bgcolor = color.new(color.purple , _transp), text_color = _color, width = _width)
+
+
+var table scanTable = table.new (position.bottom_right ,4 , 1,  border_width = 3)
+var color col_violet  = #AA00FF
+var color col_fuschia = #FF00FF
+
+if barstate.islast
+    f_fillCell(scanTable, 0, 0, label_SDOverlap, col_violet , _transp = 80 , _width = 20 )
+    f_fillCell(scanTable, 1, 0, label_Overlap_PriceWithin, color.black , _transp = 80 , _width = 20 )
+    f_fillCell(scanTable, 2, 0, label_Overlap_PriceAbove, color.green , _transp = 80 , _width = 20 )
+    f_fillCell(scanTable, 3, 0, label_Overlap_PriceBelow, color.red , _transp = 80 , _width = 20 )

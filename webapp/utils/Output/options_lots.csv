@@ -1,0 +1,188 @@
+code,lotsize,contract_step,qty_freeze,Sector,Industry,MktCategory,Mcap,IntraSectorRank,NiftyRank,Underlying,symbol_TV,symbol_TV_1
+MIDCPNIFTY,75,100,4200,,,,,,,NIFTY MID SELECT,MIDCPNIFTY,NSE:MIDCPNIFTY!1
+FINNIFTY,40,100,1800,,,,,,,NIFTY FINANCIAL SERVICES,FINNIFTY,NSE:FINNIFTY!1
+BANKNIFTY,15,100,900,,,,,,,NIFTY BANK,BANKNIFTY,NSE:BANKNIFTY!1
+NIFTY,50,100,1800,,,,,,,NIFTY 50,NIFTY,NSE:NIFTY!1
+AARTIIND,1000,5,40000,Process Industries,Chemicals: Major Diversified,,,,,AARTI INDUSTRIES LTD                ,AARTIIND,NSE:AARTIIND!1
+ABB,125,50,5000,Producer Manufacturing,Electrical Products,,,,,ABB INDIA LIMITED                   ,ABB,NSE:ABB!1
+ABBOTINDIA,40,250,1200,Health Technology,Pharmaceuticals: Major,,,,,ABBOTT INDIA LIMITED                ,ABBOTINDIA,NSE:ABBOTINDIA!1
+ABCAPITAL,5400,2.5,162000,Finance,Multi-Line Insurance,,,,,ADITYA BIRLA CAPITAL LTD.           ,ABCAPITAL,NSE:ABCAPITAL!1
+ABFRL,2600,2.5,104000,Retail Trade,Apparel/Footwear Retail,,,,,ADITYA BIRLA FASHION & RT           ,ABFRL,NSE:ABFRL!1
+ACC,300,20,12000,Non-Energy Minerals,Construction Materials,,,,,ACC LIMITED                         ,ACC,NSE:ACC!1
+ADANIENT,300,50,9000,Distribution Services,Wholesale Distributors,,,,,ADANI ENTERPRISES LIMITED           ,ADANIENT,NSE:ADANIENT!1
+ADANIPORTS,800,10,24000,Transportation,Other Transportation,,,,,ADANI PORT & SEZ LTD                ,ADANIPORTS,NSE:ADANIPORTS!1
+ALKEM,200,50,6000,Health Technology,Pharmaceuticals: Major,,,,,ALKEM LABORATORIES LTD.             ,ALKEM,NSE:ALKEM!1
+APOLLOHOSP,125,50,5000,Health Services,Hospital/Nursing Management,,,,,APOLLO HOSPITALS ENTER. L           ,APOLLOHOSP,NSE:APOLLOHOSP!1
+APOLLOTYRE,1700,5,51000,Consumer Durables,Automotive Aftermarket,,,,,APOLLO TYRES LTD                    ,APOLLOTYRE,NSE:APOLLOTYRE!1
+ASTRAL,367,20,11010,Producer Manufacturing,Miscellaneous Manufacturing,,,,,ASTRAL LIMITED                      ,ASTRAL,NSE:ASTRAL!1
+AXISBANK,625,10,25000,Finance,Regional Banks,,,,,AXIS BANK LIMITED                   ,AXISBANK,NSE:AXISBANK!1
+BAJAJ-AUTO,125,50,3750,Consumer Durables,Motor Vehicles,,,,,BAJAJ AUTO LIMITED                  ,BAJAJ_AUTO,NSE:BAJAJ_AUTO!1
+BAJFINANCE,125,50,3750,Finance,Finance/Rental/Leasing,,,,,BAJAJ FINANCE LIMITED               ,BAJFINANCE,NSE:BAJFINANCE!1
+BALKRISIND,300,20,9000,Consumer Durables,Automotive Aftermarket,,,,,BALKRISHNA IND. LTD                 ,BALKRISIND,NSE:BALKRISIND!1
+BALRAMCHIN,1600,5,48000,Process Industries,Agricultural Commodities/Milling,,,,,BALRAMPUR CHINI MILLS LTD           ,BALRAMCHIN,NSE:BALRAMCHIN!1
+BANDHANBNK,2500,2.5,100000,Finance,Major Banks,,,,,BANDHAN BANK LIMITED                ,BANDHANBNK,NSE:BANDHANBNK!1
+BANKBARODA,2925,2.5,117000,Finance,Major Banks,,,,,BANK OF BARODA                      ,BANKBARODA,NSE:BANKBARODA!1
+BEL,5700,2.5,171000,Electronic Technology,Aerospace & Defense,,,,,BHARAT ELECTRONICS LTD              ,BEL,NSE:BEL!1
+BHARATFORG,500,10,20000,Producer Manufacturing,Metal Fabrication,,,,,BHARAT FORGE LTD                    ,BHARATFORG,NSE:BHARATFORG!1
+BOSCHLTD,50,100,1500,Producer Manufacturing,Auto Parts: OEM,,,,,BOSCH LIMITED                       ,BOSCHLTD,NSE:BOSCHLTD!1
+BSOFT,1000,10,40000,Technology Services,Packaged Software,,,,,BIRLASOFT LIMITED                   ,BSOFT,NSE:BSOFT!1
+CANBK,2700,5,54000,Finance,Regional Banks,,,,,CANARA BANK                         ,CANBK,NSE:CANBK!1
+CANFINHOME,975,10,29250,Finance,Finance/Rental/Leasing,,,,,CAN FIN HOMES LTD                   ,CANFINHOME,NSE:CANFINHOME!1
+CHAMBLFERT,1900,5,76000,Process Industries,Chemicals: Specialty,,,,,CHAMBAL FERTILIZERS LTD             ,CHAMBLFERT,NSE:CHAMBLFERT!1
+CHOLAFIN,625,20,18750,Finance,Finance/Rental/Leasing,,,,,CHOLAMANDALAM IN & FIN CO           ,CHOLAFIN,NSE:CHOLAFIN!1
+CIPLA,650,10,19500,Health Technology,Pharmaceuticals: Other,,,,,CIPLA LTD                           ,CIPLA,NSE:CIPLA!1
+COFORGE,150,100,4500,Technology Services,Information Technology Services,,,,,COFORGE LIMITED                     ,COFORGE,NSE:COFORGE!1
+COLPAL,350,20,10500,Consumer Non-Durables,Household/Personal Care,,,,,COLGATE PALMOLIVE LTD.              ,COLPAL,NSE:COLPAL!1
+CROMPTON,1800,2.5,72000,Producer Manufacturing,Industrial Machinery,,,,,CROMPT GREA CON ELEC LTD            ,CROMPTON,NSE:CROMPTON!1
+CUB,5000,2.5,150000,Finance,Regional Banks,,,,,CITY UNION BANK LTD                 ,CUB,NSE:CUB!1
+DABUR,1250,5,50000,Consumer Non-Durables,Household/Personal Care,,,,,DABUR INDIA LTD                     ,DABUR,NSE:DABUR!1
+DALBHARAT,250,20,10000,Producer Manufacturing,Miscellaneous Manufacturing,,,,,DALMIA BHARAT LIMITED               ,DALBHARAT,NSE:DALBHARAT!1
+DEEPAKNTR,300,20,9000,Process Industries,Chemicals: Specialty,,,,,DEEPAK NITRITE LTD                  ,DEEPAKNTR,NSE:DEEPAKNTR!1
+DELTACORP,3000,2.5,150000,Consumer Services,Movies/Entertainment,,,,,DELTA CORP LIMITED                  ,DELTACORP,NSE:DELTACORP!1
+DLF,1650,10,33000,Finance,Real Estate Development,,,,,DLF LIMITED                         ,DLF,NSE:DLF!1
+EXIDEIND,3600,2.5,72000,Producer Manufacturing,Auto Parts: OEM,,,,,EXIDE INDUSTRIES LTD                ,EXIDEIND,NSE:EXIDEIND!1
+FEDERALBNK,5000,1,150000,Finance,Regional Banks,,,,,FEDERAL BANK LTD                    ,FEDERALBNK,NSE:FEDERALBNK!1
+GAIL,4575,1,183000,Utilities,Gas Distributors,,,,,GAIL (INDIA) LTD                    ,GAIL,NSE:GAIL!1
+GLENMARK,725,10,29000,Health Technology,Pharmaceuticals: Major,,,,,GLENMARK PHARMACEUTICALS            ,GLENMARK,NSE:GLENMARK!1
+GMRINFRA,11250,1,337500,Transportation,Other Transportation,,,,,GMR AIRPORTS INFRA LTD              ,GMRINFRA,NSE:GMRINFRA!1
+GNFC,1300,10,39000,Process Industries,Chemicals: Specialty,,,,,GUJ NAR VAL FER & CHEM L            ,GNFC,NSE:GNFC!1
+GODREJCP,500,10,20000,Consumer Non-Durables,Household/Personal Care,,,,,GODREJ CONSUMER PRODUCTS            ,GODREJCP,NSE:GODREJCP!1
+GODREJPROP,475,20,14250,Finance,Real Estate Development,,,,,GODREJ PROPERTIES LTD               ,GODREJPROP,NSE:GODREJPROP!1
+GRASIM,477,20,14310,Non-Energy Minerals,Construction Materials,,,,,GRASIM INDUSTRIES LTD               ,GRASIM,NSE:GRASIM!1
+HCLTECH,700,10,21000,Technology Services,Information Technology Services,,,,,HCL TECHNOLOGIES LTD                ,HCLTECH,NSE:HCLTECH!1
+AMBUJACEM,1800,5,54000,Non-Energy Minerals,Construction Materials,,,,,AMBUJA CEMENTS LTD                  ,AMBUJACEM,NSE:AMBUJACEM!1
+HDFCBANK,550,10,16500,Finance,Regional Banks,,,,,HDFC BANK LTD                       ,HDFCBANK,NSE:HDFCBANK!1
+HDFCLIFE,1100,10,33000,Finance,Multi-Line Insurance,,,,,HDFC LIFE INS CO LTD                ,HDFCLIFE,NSE:HDFCLIFE!1
+ICICIPRULI,1500,5,45000,Finance,Life/Health Insurance,,,,,ICICI PRU LIFE INS CO LTD           ,ICICIPRULI,NSE:ICICIPRULI!1
+IDFC,5000,1,200000,Finance,Investment Managers,,,,,IDFC LIMITED                        ,IDFC,NSE:IDFC!1
+IDFCFIRSTB,7500,1,300000,Finance,Regional Banks,,,,,IDFC FIRST BANK LIMITED             ,IDFCFIRSTB,NSE:IDFCFIRSTB!1
+IEX,3750,1,150000,Finance,Investment Banks/Brokers,,,,,INDIAN ENERGY EXC LTD               ,IEX,NSE:IEX!1
+ASHOKLEY,5000,2.5,150000,Producer Manufacturing,Trucks/Construction/Farm Machinery,,,,,ASHOK LEYLAND LTD                   ,ASHOKLEY,NSE:ASHOKLEY!1
+ASIANPAINT,200,20,8000,Process Industries,Industrial Specialties,,,,,ASIAN PAINTS LIMITED                ,ASIANPAINT,NSE:ASIANPAINT!1
+IGL,1375,5,55000,Utilities,Gas Distributors,,,,,INDRAPRASTHA GAS LTD                ,IGL,NSE:IGL!1
+INDIAMART,300,20,9000,Retail Trade,Internet Retail,,,,,INDIAMART INTERMESH LTD             ,INDIAMART,NSE:INDIAMART!1
+INDIGO,300,20,9000,Transportation,Airlines,,,,,INTERGLOBE AVIATION LTD             ,INDIGO,NSE:INDIGO!1
+INDUSINDBK,500,20,15000,Finance,Major Banks,,,,,INDUSIND BANK LIMITED               ,INDUSINDBK,NSE:INDUSINDBK!1
+BAJAJFINSV,500,20,15000,Finance,Life/Health Insurance,,,,,BAJAJ FINSERV LTD.                  ,BAJAJFINSV,NSE:BAJAJFINSV!1
+INDUSTOWER,3400,2.5,136000,Finance,Finance/Rental/Leasing,,,,,INDUS TOWERS LIMITED                ,INDUSTOWER,NSE:INDUSTOWER!1
+INFY,400,10,16000,Technology Services,Information Technology Services,,,,,INFOSYS LIMITED                     ,INFY,NSE:INFY!1
+BPCL,1800,5,54000,Energy Minerals,Oil Refining/Marketing,,,,,BHARAT PETROLEUM CORP  LT           ,BPCL,NSE:BPCL!1
+IOC,9750,1,195000,Energy Minerals,Integrated Oil,,,,,INDIAN OIL CORP LTD                 ,IOC,NSE:IOC!1
+IRCTC,875,10,26250,Consumer Services,Other Consumer Services,,,,,INDIAN RAIL TOUR CORP LTD           ,IRCTC,NSE:IRCTC!1
+JINDALSTEL,1250,10,37500,Non-Energy Minerals,Steel,,,,,JINDAL STEEL & POWER LTD            ,JINDALSTEL,NSE:JINDALSTEL!1
+KOTAKBANK,400,10,12000,Finance,Major Banks,,,,,KOTAK MAHINDRA BANK LTD             ,KOTAKBANK,NSE:KOTAKBANK!1
+BIOCON,2500,2.5,100000,Health Technology,Pharmaceuticals: Major,,,,,BIOCON LIMITED.                     ,BIOCON,NSE:BIOCON!1
+L&TFH,4462,2.5,133860,Finance,Finance/Rental/Leasing,,,,,L&T FINANCE HOLDINGS LTD            ,L_TFH,NSE:L_TFH!1
+BRITANNIA,200,20,6000,Consumer Non-Durables,Food: Specialty/Candy,,,,,BRITANNIA INDUSTRIES LTD            ,BRITANNIA,NSE:BRITANNIA!1
+LALPATHLAB,300,20,9000,Health Services,Medical/Nursing Services,,,,,DR. LAL PATH LABS LTD.              ,LALPATHLAB,NSE:LALPATHLAB!1
+LAURUSLABS,1700,5,51000,Health Technology,Pharmaceuticals: Major,,,,,LAURUS LABS LIMITED                 ,LAURUSLABS,NSE:LAURUSLABS!1
+LT,300,20,9000,Industrial Services,Engineering & Construction,,,,,LARSEN & TOUBRO LTD.                ,LT,NSE:LT!1
+LTTS,200,50,6000,Industrial Services,Engineering & Construction,,,,,L&T TECHNOLOGY SER. LTD.            ,LTTS,NSE:LTTS!1
+LUPIN,850,10,17000,Health Technology,Pharmaceuticals: Other,,,,,LUPIN LIMITED                       ,LUPIN,NSE:LUPIN!1
+M&M,350,20,14000,Consumer Durables,Motor Vehicles,,,,,MAHINDRA & MAHINDRA LTD             ,M_M,NSE:M_M!1
+M&MFIN,2000,5,80000,Finance,Finance/Rental/Leasing,,,,,M&M FIN. SERVICES LTD               ,M_MFIN,NSE:M_MFIN!1
+MANAPPURAM,6000,2.5,180000,Finance,Finance/Rental/Leasing,,,,,MANAPPURAM FINANCE LTD              ,MANAPPURAM,NSE:MANAPPURAM!1
+COROMANDEL,700,10,21000,Process Industries,Chemicals: Specialty,,,,,COROMANDEL INTERNTL. LTD            ,COROMANDEL,NSE:COROMANDEL!1
+MARICO,1200,5,48000,Consumer Non-Durables,Household/Personal Care,,,,,MARICO LIMITED                      ,MARICO,NSE:MARICO!1
+MARUTI,50,100,2500,Consumer Durables,Motor Vehicles,,,,,MARUTI SUZUKI INDIA LTD.            ,MARUTI,NSE:MARUTI!1
+MCDOWELL-N,700,10,21000,Consumer Non-Durables,Beverages: Alcoholic,,,,,UNITED SPIRITS LIMITED              ,MCDOWELL_N,NSE:MCDOWELL_N!1
+CUMMINSIND,300,20,12000,Producer Manufacturing,Auto Parts: OEM,,,,,CUMMINS INDIA LTD                   ,CUMMINSIND,NSE:CUMMINSIND!1
+METROPOLIS,400,20,16000,Health Services,Medical/Nursing Services,,,,,METROPOLIS HEALTHCARE LTD           ,METROPOLIS,NSE:METROPOLIS!1
+MFSL,800,10,24000,Finance,Life/Health Insurance,,,,,MAX FINANCIAL SERV LTD              ,MFSL,NSE:MFSL!1
+MOTHERSON,7100,1,284000,Producer Manufacturing,Auto Parts: OEM,,,,,SAMVRDHNA MTHRSN INTL LTD           ,MOTHERSON,NSE:MOTHERSON!1
+MPHASIS,275,20,8250,Technology Services,Packaged Software,,,,,MPHASIS LIMITED                     ,MPHASIS,NSE:MPHASIS!1
+MRF,5,500,200,Consumer Durables,Automotive Aftermarket,,,,,MRF LTD                             ,MRF,NSE:MRF!1
+DIXON,100,100,4000,Electronic Technology,Electronic Production Equipment,,,,,DIXON TECHNO (INDIA) LTD            ,DIXON,NSE:DIXON!1
+MUTHOOTFIN,550,20,16500,Finance,Finance/Rental/Leasing,,,,,MUTHOOT FINANCE LIMITED             ,MUTHOOTFIN,NSE:MUTHOOTFIN!1
+NATIONALUM,7500,1,225000,Non-Energy Minerals,Aluminum,,,,,NATIONAL ALUMINIUM CO LTD           ,NATIONALUM,NSE:NATIONALUM!1
+NAUKRI,150,50,4500,Technology Services,Internet Software/Services,,,,,INFO EDGE (I) LTD                   ,NAUKRI,NSE:NAUKRI!1
+EICHERMOT,175,50,5250,Consumer Durables,Motor Vehicles,,,,,EICHER MOTORS LTD                   ,EICHERMOT,NSE:EICHERMOT!1
+NESTLEIND,400,20,12000,Consumer Non-Durables,Food: Major Diversified,,,,,NESTLE INDIA LIMITED                ,NESTLEIND,NSE:NESTLEIND!1
+NMDC,4500,2.5,135000,Non-Energy Minerals,Other Metals/Minerals,,,,,NMDC LTD.                           ,NMDC,NSE:NMDC!1
+NTPC,3000,2.5,90000,Utilities,Electric Utilities,,,,,NTPC LTD                            ,NTPC,NSE:NTPC!1
+OBEROIRLTY,700,20,21000,Finance,Real Estate Development,,,,,OBEROI REALTY LIMITED               ,OBEROIRLTY,NSE:OBEROIRLTY!1
+OFSS,200,50,6000,Technology Services,Packaged Software,,,,,ORACLE FIN SERV SOFT LTD.           ,OFSS,NSE:OFSS!1
+PAGEIND,15,250,600,Consumer Non-Durables,Apparel/Footwear,,,,,PAGE INDUSTRIES LTD                 ,PAGEIND,NSE:PAGEIND!1
+PEL,750,10,22500,Finance,Investment Managers,,,,,PIRAMAL ENTERPRISES LTD             ,PEL,NSE:PEL!1
+PERSISTENT,100,100,3000,Technology Services,Information Technology Services,,,,,PERSISTENT SYSTEMS LTD              ,PERSISTENT,NSE:PERSISTENT!1
+PFC,3875,5,77500,Finance,Finance/Rental/Leasing,,,,,POWER FIN CORP LTD.                 ,PFC,NSE:PFC!1
+PIDILITIND,250,20,10000,Process Industries,Industrial Specialties,,,,,PIDILITE INDUSTRIES LTD             ,PIDILITIND,NSE:PIDILITIND!1
+PNB,8000,1,240000,Finance,Major Banks,,,,,PUNJAB NATIONAL BANK                ,PNB,NSE:PNB!1
+POLYCAB,100,50,4000,Producer Manufacturing,Electrical Products,,,,,POLYCAB INDIA LIMITED               ,POLYCAB,NSE:POLYCAB!1
+COALINDIA,2100,2.5,63000,Energy Minerals,Coal,,,,,COAL INDIA LTD                      ,COALINDIA,NSE:COALINDIA!1
+PVRINOX,407,20,12210,0,0,,,,,PVR INOX LIMITED                    ,PVRINOX,NSE:PVRINOX!1
+RAMCOCEM,850,10,25500,Non-Energy Minerals,Construction Materials,,,,,THE RAMCO CEMENTS LIMITED           ,RAMCOCEM,NSE:RAMCOCEM!1
+RBLBANK,2500,5,100000,Finance,Major Banks,,,,,RBL BANK LIMITED                    ,RBLBANK,NSE:RBLBANK!1
+RECLTD,2000,10,60000,Finance,Finance/Rental/Leasing,,,,,REC LIMITED                         ,RECLTD,NSE:RECLTD!1
+RELIANCE,250,20,10000,Energy Minerals,Oil Refining/Marketing,,,,,RELIANCE INDUSTRIES LTD             ,RELIANCE,NSE:RELIANCE!1
+SAIL,8000,1,240000,Non-Energy Minerals,Steel,,,,,STEEL AUTHORITY OF INDIA            ,SAIL,NSE:SAIL!1
+SBICARD,800,10,32000,Finance,Finance/Rental/Leasing,,,,,SBI CARDS & PAY SER LTD             ,SBICARD,NSE:SBICARD!1
+SBILIFE,750,10,15000,Finance,Life/Health Insurance,,,,,SBI LIFE INSURANCE CO LTD           ,SBILIFE,NSE:SBILIFE!1
+SBIN,1500,5,45000,Finance,Regional Banks,,,,,STATE BANK OF INDIA                 ,SBIN,NSE:SBIN!1
+SHRIRAMFIN,300,20,12000,Finance,Finance/Rental/Leasing,,,,,SHRIRAM FINANCE LIMITED             ,SHRIRAMFIN,NSE:SHRIRAMFIN!1
+CONCOR,1000,10,30000,Transportation,Railroads,,,,,CONTAINER CORP OF IND LTD           ,CONCOR,NSE:CONCOR!1
+SIEMENS,150,50,6000,Producer Manufacturing,Electrical Products,,,,,SIEMENS LTD                         ,SIEMENS,NSE:SIEMENS!1
+SRF,375,20,11250,Process Industries,Industrial Specialties,,,,,SRF LTD                             ,SRF,NSE:SRF!1
+SUNPHARMA,700,10,21000,Health Technology,Pharmaceuticals: Major,,,,,SUN PHARMACEUTICAL IND L            ,SUNPHARMA,NSE:SUNPHARMA!1
+SUNTV,1500,10,45000,Consumer Services,Broadcasting,,,,,SUN TV NETWORK LIMITED              ,SUNTV,NSE:SUNTV!1
+TATACHEM,550,10,22000,Process Industries,Chemicals: Agricultural,,,,,TATA CHEMICALS LTD                  ,TATACHEM,NSE:TATACHEM!1
+TATACOMM,500,20,15000,Communications,Major Telecommunications,,,,,TATA COMMUNICATIONS LTD             ,TATACOMM,NSE:TATACOMM!1
+TATACONSUM,900,10,27000,Consumer Non-Durables,Food: Specialty/Candy,,,,,TATA CONSUMER PRODUCT LTD           ,TATACONSUM,NSE:TATACONSUM!1
+TATAMOTORS,1425,10,28500,Consumer Durables,Motor Vehicles,,,,,TATA MOTORS LIMITED                 ,TATAMOTORS,NSE:TATAMOTORS!1
+TATAPOWER,3375,5,67500,Utilities,Electric Utilities,,,,,TATA POWER CO LTD                   ,TATAPOWER,NSE:TATAPOWER!1
+TCS,175,20,7000,Technology Services,Information Technology Services,,,,,TATA CONSULTANCY SERV LT            ,TCS,NSE:TCS!1
+TITAN,175,20,7000,Consumer Durables,Other Consumer Specialties,,,,,TITAN COMPANY LIMITED               ,TITAN,NSE:TITAN!1
+GRANULES,2000,5,60000,Health Technology,Pharmaceuticals: Other,,,,,GRANULES INDIA LIMITED              ,GRANULES,NSE:GRANULES!1
+TORNTPHARM,500,20,10000,Health Technology,Pharmaceuticals: Major,,,,,TORRENT PHARMACEUTICALS L           ,TORNTPHARM,NSE:TORNTPHARM!1
+GUJGASLTD,1250,5,50000,Utilities,Gas Distributors,,,,,GUJARAT GAS LIMITED                 ,GUJGASLTD,NSE:GUJGASLTD!1
+TRENT,400,20,8000,Retail Trade,Apparel/Footwear Retail,,,,,TRENT LTD                           ,TRENT,NSE:TRENT!1
+TVSMOTOR,350,20,14000,Consumer Durables,Motor Vehicles,,,,,TVS MOTOR COMPANY  LTD              ,TVSMOTOR,NSE:TVSMOTOR!1
+UBL,400,20,16000,Consumer Non-Durables,Beverages: Alcoholic,,,,,UNITED BREWERIES LTD                ,UBL,NSE:UBL!1
+HINDCOPPER,5300,2.5,106000,Non-Energy Minerals,Other Metals/Minerals,,,,,HINDUSTAN COPPER LTD                ,HINDCOPPER,NSE:HINDCOPPER!1
+WIPRO,1500,5,60000,Technology Services,Information Technology Services,,,,,WIPRO LTD                           ,WIPRO,NSE:WIPRO!1
+ZEEL,3000,5,90000,Consumer Services,Broadcasting,,,,,ZEE ENTERTAINMENT ENT LTD           ,ZEEL,NSE:ZEEL!1
+ZYDUSLIFE,900,5,36000,Health Technology,Pharmaceuticals: Major,,,,,ZYDUS LIFESCIENCES LTD              ,ZYDUSLIFE,NSE:ZYDUSLIFE!1
+HINDUNILVR,300,20,9000,Consumer Non-Durables,Household/Personal Care,,,,,HINDUSTAN UNILEVER LTD.             ,HINDUNILVR,NSE:HINDUNILVR!1
+IDEA,80000,1,1600000,Communications,Wireless Telecommunications,,,,,VODAFONE IDEA LIMITED               ,IDEA,NSE:IDEA!1
+HAVELLS,500,10,15000,Producer Manufacturing,Electrical Products,,,,,HAVELLS INDIA LIMITED               ,HAVELLS,NSE:HAVELLS!1
+IPCALAB,650,10,19500,Health Technology,Pharmaceuticals: Major,,,,,IPCA LABORATORIES LTD               ,IPCALAB,NSE:IPCALAB!1
+LICHSGFIN,2000,5,60000,Finance,Finance/Rental/Leasing,,,,,LIC HOUSING FINANCE LTD             ,LICHSGFIN,NSE:LICHSGFIN!1
+INDIACEM,2900,5,87000,Non-Energy Minerals,Construction Materials,,,,,THE INDIA CEMENTS LIMITED           ,INDIACEM,NSE:INDIACEM!1
+LTIM,150,50,4500,Commercial Services,Miscellaneous Commercial Services,,,,,LTIMINDTREE LIMITED                 ,LTIM,NSE:LTIM!1
+ITC,1600,2.5,64000,Consumer Non-Durables,Tobacco,,,,,ITC LTD                             ,ITC,NSE:ITC!1
+AUBANK,1000,10,30000,Finance,Finance/Rental/Leasing,,,,,AU SMALL FINANCE BANK LTD           ,AUBANK,NSE:AUBANK!1
+AUROPHARMA,1100,10,22000,Health Technology,Pharmaceuticals: Other,,,,,AUROBINDO PHARMA LTD                ,AUROPHARMA,NSE:AUROPHARMA!1
+BATAINDIA,375,20,15000,Consumer Non-Durables,Apparel/Footwear,,,,,BATA INDIA LTD                      ,BATAINDIA,NSE:BATAINDIA!1
+BERGEPAINT,1320,5,39600,Process Industries,Industrial Specialties,,,,,BERGER PAINTS (I) LTD               ,BERGEPAINT,NSE:BERGEPAINT!1
+JSWSTEEL,675,10,27000,Non-Energy Minerals,Steel,,,,,JSW STEEL LIMITED                   ,JSWSTEEL,NSE:JSWSTEEL!1
+BHARTIARTL,950,10,28500,Communications,Wireless Telecommunications,,,,,BHARTI AIRTEL LIMITED               ,BHARTIARTL,NSE:BHARTIARTL!1
+BHEL,5250,2.5,157500,Producer Manufacturing,Electrical Products,,,,,BHEL                                ,BHEL,NSE:BHEL!1
+DRREDDY,125,50,3750,Health Technology,Pharmaceuticals: Major,,,,,DR. REDDY S LABORATORIES            ,DRREDDY,NSE:DRREDDY!1
+HDFCAMC,300,50,9000,Finance,Investment Managers,,,,,HDFC AMC LIMITED                    ,HDFCAMC,NSE:HDFCAMC!1
+HINDPETRO,2700,5,54000,Energy Minerals,Oil Refining/Marketing,,,,,HINDUSTAN PETROLEUM CORP            ,HINDPETRO,NSE:HINDPETRO!1
+ICICIBANK,700,10,28000,Finance,Regional Banks,,,,,ICICI BANK LTD.                     ,ICICIBANK,NSE:ICICIBANK!1
+INDHOTEL,2000,5,60000,Consumer Services,Hotels/Resorts/Cruise lines,,,,,THE INDIAN HOTELS CO. LTD           ,INDHOTEL,NSE:INDHOTEL!1
+SHREECEM,25,250,1000,Non-Energy Minerals,Construction Materials,,,,,SHREE CEMENT LIMITED                ,SHREECEM,NSE:SHREECEM!1
+JUBLFOOD,1250,5,50000,Consumer Services,Restaurants,,,,,JUBILANT FOODWORKS LTD              ,JUBLFOOD,NSE:JUBLFOOD!1
+MCX,400,50,8000,Finance,Investment Banks/Brokers,,,,,MULTI COMMODITY EXCHANGE            ,MCX,NSE:MCX!1
+MGL,800,10,24000,Utilities,Gas Distributors,,,,,MAHANAGAR GAS LTD.                  ,MGL,NSE:MGL!1
+TATASTEEL,5500,1,165000,Non-Energy Minerals,Steel,,,,,TATA STEEL LIMITED                  ,TATASTEEL,NSE:TATASTEEL!1
+NAVINFLUOR,150,50,6000,Process Industries,Chemicals: Specialty,,,,,NAVIN FLUORINE INT. LTD             ,NAVINFLUOR,NSE:NAVINFLUOR!1
+ULTRACEMCO,100,100,3000,Non-Energy Minerals,Construction Materials,,,,,ULTRATECH CEMENT LIMITED            ,ULTRACEMCO,NSE:ULTRACEMCO!1
+PIIND,250,50,7500,Process Industries,Chemicals: Specialty,,,,,PI INDUSTRIES LTD                   ,PIIND,NSE:PIIND!1
+SYNGENE,1000,10,30000,Commercial Services,Miscellaneous Commercial Services,,,,,SYNGENE INTERNATIONAL LTD           ,SYNGENE,NSE:SYNGENE!1
+TECHM,600,10,18000,Technology Services,Information Technology Services,,,,,TECH MAHINDRA LIMITED               ,TECHM,NSE:TECHM!1
+UPL,1300,5,39000,Process Industries,Chemicals: Agricultural,,,,,UPL LIMITED                         ,UPL,NSE:UPL!1
+HINDALCO,1400,5,42000,Non-Energy Minerals,Other Metals/Minerals,,,,,HINDALCO  INDUSTRIES  LTD           ,HINDALCO,NSE:HINDALCO!1
+JKCEMENT,250,50,7500,Non-Energy Minerals,Construction Materials,,,,,JK CEMENT LIMITED                   ,JKCEMENT,NSE:JKCEMENT!1
+HAL,300,20,9000,Electronic Technology,Aerospace & Defense,,,,,HINDUSTAN AERONAUTICS LTD           ,HAL,NSE:HAL!1
+DIVISLAB,200,50,6000,Health Technology,Pharmaceuticals: Major,,,,,DIVI S LABORATORIES LTD             ,DIVISLAB,NSE:DIVISLAB!1
+ESCORTS,275,50,8250,Producer Manufacturing,Auto Parts: OEM,,,,,ESCORTS KUBOTA LIMITED              ,ESCORTS,NSE:ESCORTS!1
+POWERGRID,3600,2.5,108000,Utilities,Alternative Power Generation,,,,,POWER GRID CORP. LTD.               ,POWERGRID,NSE:POWERGRID!1
+VOLTAS,600,10,24000,Producer Manufacturing,Industrial Machinery,,,,,VOLTAS LTD                          ,VOLTAS,NSE:VOLTAS!1
+ATUL,75,50,3750,Process Industries,Chemicals: Agricultural,,,,,ATUL LTD                            ,ATUL,NSE:ATUL!1
+HEROMOTOCO,300,50,6000,Consumer Durables,Motor Vehicles,,,,,HERO MOTOCORP LIMITED               ,HEROMOTOCO,NSE:HEROMOTOCO!1
+ICICIGI,500,20,15000,Finance,Specialty Insurance,,,,,ICICI LOMBARD GIC LIMITED           ,ICICIGI,NSE:ICICIGI!1
+ONGC,3850,2.5,115500,Energy Minerals,Oil Refining/Marketing,,,,,OIL AND NATURAL GAS CORP.           ,ONGC,NSE:ONGC!1
+PETRONET,3000,2.5,120000,Utilities,Gas Distributors,,,,,PETRONET LNG LIMITED                ,PETRONET,NSE:PETRONET!1
+VEDL,2300,2.5,92000,Non-Energy Minerals,Aluminum,,,,,VEDANTA LIMITED                     ,VEDL,NSE:VEDL!1

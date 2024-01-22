@@ -1,0 +1,51 @@
+{%extends "base.html"%}
+{%load templatefunctions%}
+
+{%block content%}
+
+{% comment %} {'code': 'DELTACORP', 'name': 'Delta Corp Ltd.', 'color': '#00a25bae', 
+'current_price': 273.35, 'current_change': 4.7318008, 
+'current_difference': 12.35, 
+'oi': 17657100.0, 
+'oi_change': 7.2806037, 
+'oi_difference': 1198300.0, 'builtup_str': 'Long Build Up', 
+'lotsize': 2300, 'contract_step': 5.0, 'qty_freeze': 92000, 
+'atm': 270.0, 'citm1': 265.0, 'citm2': 260.0, 'citm3': 275.0, 
+'citm4': 275.0},  {% endcomment %}
+
+<table class="table small heatmaptable">
+    <tr>
+        <th>CODE</th>
+        <th>NAME</th>
+        <th>PRICE</th>
+        <th>OI</th>
+        <th>OI CH.</th>
+        <th>BuildUP</th>
+        <th>CITM1</th>
+        <th>CITM2</th>
+        <th>ATM</th>
+        <th>PITM1</th>
+        <th>PITM2</th>
+    </tr>
+    Updated : {{heatmapdf.last_updated|getTimeAgo}}
+    {%for data in heatmapdf.data%}
+    <tr>
+        <td style="background:{{data.color}}">{{data.code}}</td>
+        <td >{{data.name}}</td>
+        <td>{{data.current_price}} &nbsp;&nbsp;({{data.current_change|floatformat:2}}%)</td>
+        <td>{{data.oi}}</td>
+        <td>{{data.oi_change|floatformat:2}}%</td>
+        <td>{{data.builtup_str}}</td>
+        <td>{{data.citm1|floatformat:0}}</td>
+        <td>{{data.citm2|floatformat:0}}</td>
+        <td>{{data.citm3|floatformat:0}}</td>
+        <td>{{data.citm4|floatformat:0}}</td>
+        <td>{{data.atm|floatformat:0}}</td>
+        <td>{{data.pitm1|floatformat:0}}</td>
+        <td>{{data.pitm2|floatformat:0}}</td>
+        <td>{{data.pitm3|floatformat:0}}</td>
+        <td>{{data.pitm4|floatformat:0}}</td>
+    </tr>    
+    {%endfor%}
+</table>
+{%endblock%}
